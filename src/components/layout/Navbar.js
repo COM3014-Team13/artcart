@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -10,13 +11,21 @@ import {
   List,
   ListItem,
   ListItemText,
+  Menu,
+  MenuItem,
   Toolbar,
   Typography
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const desktop = useMediaQuery({
+    query: '(min-width: 800px)'
+  });
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -35,6 +44,10 @@ const Navbar = () => {
     },
     navIcon: {
       verticalAlign: '-3px'
+    },
+    link: {
+      color: 'black',
+      textDecoration: 'none'
     }
   }));
 
@@ -51,6 +64,58 @@ const Navbar = () => {
     setOpen(open);
   };
 
+  const desktopLinks = (
+    <Fragment>
+      <Button className={classes.navButton}>
+        <Typography variant='h5'>Register</Typography>
+      </Button>
+      <Button className={classes.navButton}>
+        <Typography variant='h5'>Login</Typography>
+      </Button>
+    </Fragment>
+  );
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const mobileLinks = (
+    <Fragment>
+      <Button
+        aria-controls='simple-menu'
+        aria-haspopup='true'
+        onClick={handleClick}
+      >
+        <AccountCircleIcon
+          style={{ color: 'white' }}
+          className={classes.navIcon}
+        />
+      </Button>
+      <Menu
+        id='simple-menu'
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>
+          <Link to='#register' className={classes.link}>
+            Register
+          </Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to='#login' className={classes.link}>
+            Login
+          </Link>
+        </MenuItem>
+      </Menu>
+    </Fragment>
+  );
+
   return (
     <div className={classes.root}>
       <AppBar position='sticky'>
@@ -58,7 +123,7 @@ const Navbar = () => {
           <Fragment>
             <Button onClick={toggleDrawer(true)} className={classes.navButton}>
               <Typography variant='h5'>
-                <MenuIcon className={classes.navIcon} /> Browse
+                <MenuIcon className={classes.navIcon} /> {desktop && 'Browse'}
               </Typography>
             </Button>
             <Drawer anchor='left' open={open} onClose={toggleDrawer(false)}>
@@ -79,13 +144,7 @@ const Navbar = () => {
               </Link>
             </Box>
           </Box>
-
-          <Button className={classes.navButton}>
-            <Typography variant='h5'>Register</Typography>
-          </Button>
-          <Button className={classes.navButton}>
-            <Typography variant='h5'>Login</Typography>
-          </Button>
+          {desktop ? desktopLinks : mobileLinks}
         </Toolbar>
       </AppBar>
     </div>
