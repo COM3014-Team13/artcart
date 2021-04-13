@@ -7,7 +7,6 @@ import {
   Box,
   Button,
   Drawer,
-  Icon,
   List,
   ListItem,
   ListItemText,
