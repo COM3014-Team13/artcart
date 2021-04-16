@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
+import Register from './components/auth/Register';
 
 import ProductState from './context/product/ProductState';
 
@@ -15,6 +16,7 @@ function App() {
           <div className='container'>
             <Switch>
               <Route exact path='/' component={Home} />
+              <Route exact path='/register' component={Register} />
             </Switch>
           </div>
         </div>

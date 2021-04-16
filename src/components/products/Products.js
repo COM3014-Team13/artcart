@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 import ProductCard from '../products/ProductCard';
 import ProductContext from '../../context/product/productContext';
 import { Grid } from '@material-ui/core';
@@ -15,15 +15,13 @@ const Products = () => {
   const productContext = useContext(ProductContext);
   const { products } = productContext;
   return (
-    <div style={{ width: '100%' }}>
-      <Grid container spacing={3}>
-        {products.map(x => (
-          <Grid item xs={big ? 4 : med ? 6 : 12} key={x.id}>
-            <ProductCard product={x} />
-          </Grid>
-        ))}
-      </Grid>
-    </div>
+    <Grid container spacing={3}>
+      {products.map(product => (
+        <Grid item xs={big ? 4 : med ? 6 : 12} key={product.id}>
+          <ProductCard product={product} />
+        </Grid>
+      ))}
+    </Grid>
   );
 };
 

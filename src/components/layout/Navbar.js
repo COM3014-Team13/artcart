@@ -65,12 +65,16 @@ const Navbar = () => {
 
   const desktopLinks = (
     <Fragment>
-      <Button className={classes.navButton}>
-        <Typography variant='h5'>Register</Typography>
-      </Button>
-      <Button className={classes.navButton}>
-        <Typography variant='h5'>Login</Typography>
-      </Button>
+      <Link to='/register' className={classes.link}>
+        <Button className={classes.navButton}>
+          <Typography variant='h5'>Register</Typography>
+        </Button>
+      </Link>
+      <Link to='/login' className={classes.link}>
+        <Button className={classes.navButton}>
+          <Typography variant='h5'>Login</Typography>
+        </Button>
+      </Link>
     </Fragment>
   );
 
@@ -102,12 +106,12 @@ const Navbar = () => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>
-          <Link to='#register' className={classes.link}>
+          <Link to='/register' className={classes.link}>
             Register
           </Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Link to='#login' className={classes.link}>
+          <Link to='/login' className={classes.link}>
             Login
           </Link>
         </MenuItem>
