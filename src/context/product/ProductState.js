@@ -1,14 +1,18 @@
 import React, { useReducer } from 'react';
 import ProductContext from './productContext';
 import productReducer from './productReducer';
-import { GET_PRODUCTS } from '../types';
+import { GET_PRODUCTS, GET_PRODUCT } from '../types';
 
 const ProductState = props => {
   const initialState = {
     products: [
       {
         id: 1,
-        sid: 'abc123',
+        seller: {
+          id: 'abc123',
+          name: 'John Lennon',
+          rating: 4.8
+        },
         title: 'Mona Lisa',
         price: {
           value: 11.99,
@@ -33,14 +37,34 @@ const ProductState = props => {
         },
         image_url: 'https://i.imgur.com/dQghycI.jpg',
         desc: {
-          date: new Date(1889, 5, 0),
+          date: new Date(1889, 5, 1),
           artist: 'Vincent van Gogh',
           type: 'Oil Painting',
           info: 'A masterpiece by the Post-Impressionist genius.'
         },
         seller_rating: 4.8
       }
-    ]
+    ],
+    product: {
+      id: 2,
+      seller: {
+        id: 'def456',
+        name: 'Jim Smith',
+        rating: 3.5
+      },
+      title: 'The Starry Night',
+      price: {
+        value: 18.99,
+        discount: 0.35
+      },
+      image_url: 'https://i.imgur.com/dQghycI.jpg',
+      desc: {
+        date: new Date(1889, 5, 1),
+        artist: 'Vincent van Gogh',
+        type: 'Oil Painting',
+        info: 'A masterpiece by the Post-Impressionist genius.'
+      }
+    }
   };
 
   const [state, dispatch] = useReducer(productReducer, initialState);
@@ -51,11 +75,19 @@ const ProductState = props => {
     console.log('Get Products!');
   };
 
+  // Get Product
+  const getProduct = id => {
+    // GET request to product microservice
+    console.log('Get Product!');
+  };
+
   return (
     <ProductContext.Provider
       value={{
         products: state.products,
-        getProducts
+        product: state.product,
+        getProducts,
+        getProduct
       }}
     >
       {props.children}

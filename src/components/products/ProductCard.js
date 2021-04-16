@@ -11,7 +11,7 @@ import {
 const ProductCard = ({ product }) => {
   const { id, title, price, image_url, desc } = product;
 
-  const link = '#products/' + id;
+  const link = 'products/' + id;
 
   return (
     <Link to={link} style={{ textDecoration: 'none' }}>
