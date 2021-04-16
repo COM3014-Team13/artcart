@@ -8,9 +8,9 @@ import {
   Grid,
   Typography
 } from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
 import PersonIcon from '@material-ui/icons/Person';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
-import StarIcon from '@material-ui/icons/Star';
 
 const Product = () => {
   const productContext = useContext(ProductContext);
@@ -45,10 +45,13 @@ const Product = () => {
                   fontSize='small'
                   style={{ verticalAlign: '-3.5px' }}
                 />
-                {seller.name + ' - ' + seller.rating}
-                <StarIcon
-                  fontSize='small'
-                  style={{ verticalAlign: '-3.5px' }}
+                {seller.name}
+                <br />
+                <Rating
+                  name='read-only'
+                  value={seller.rating}
+                  precision={0.5}
+                  readOnly
                 />
               </Typography>
               <Typography variant='subtitle1'>£{price.value}</Typography>
