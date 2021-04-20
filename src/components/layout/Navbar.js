@@ -65,6 +65,11 @@ const Navbar = () => {
 
   const desktopLinks = (
     <Fragment>
+      <Link to='/account' className={classes.link}>
+        <Button className={classes.navButton}>
+          <Typography variant='h5'>Account</Typography>
+        </Button>
+      </Link>
       <Link to='/register' className={classes.link}>
         <Button className={classes.navButton}>
           <Typography variant='h5'>Register</Typography>
@@ -105,6 +110,11 @@ const Navbar = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <MenuItem onClick={handleClose}>
+          <Link to='/account' className={classes.link}>
+            Account
+          </Link>
+        </MenuItem>
         <MenuItem onClick={handleClose}>
           <Link to='/register' className={classes.link}>
             Register

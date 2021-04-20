@@ -5,7 +5,7 @@ import Products from '../products/Products';
 const Home = () => {
   return (
     <Fragment>
-      <Typography>Home Page.</Typography>
+      <Typography variant='h2'>Latest</Typography>
       <Products />
     </Fragment>
   );
