@@ -11,13 +11,22 @@ import {
 } from '@material-ui/core';
 import PhoneIcon from '@material-ui/icons/Phone';
 import HomeIcon from '@material-ui/icons/Home';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const AddressCard = ({ address }) => {
-  const { street, postcode, city, country, phone } = address;
+  const { name, street, postcode, city, country, phone } = address;
   return (
     <Card>
       <CardContent>
         <List>
+          <ListItem>
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography>{name}</Typography>
+            </ListItemText>
+          </ListItem>
           <ListItem>
             <ListItemIcon>
               <HomeIcon />

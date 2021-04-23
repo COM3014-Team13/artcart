@@ -16,6 +16,7 @@ const AuthState = props => {
       uid: 1,
       addresses: [
         {
+          name: 'John Smith',
           street: '10 Downing Street',
           postcode: 'SW1A 2AA',
           city: 'London',
@@ -23,6 +24,7 @@ const AuthState = props => {
           phone: '+441234567890'
         },
         {
+          name: 'John Smith',
           street: '10 Downing Street',
           postcode: 'SW1A 2AA',
           city: 'London',
@@ -31,52 +33,6 @@ const AuthState = props => {
         }
       ]
     },
-    orders: [
-      {
-        id: 1,
-        cid: 1,
-        sid: 1,
-        product: {
-          pid: 1,
-          name: 'The Night Watch',
-          price: 29.99
-        },
-        shipping: {
-          customer: 'John Smith',
-          address: {
-            street: '10 Downing Street',
-            postcode: 'SW1A 2AA',
-            city: 'London',
-            country: 'UK',
-            phone: '+441234567890'
-          }
-        },
-        rated: false,
-        date: new Date(2021, 2, 24)
-      },
-      {
-        id: 2,
-        cid: 1,
-        sid: 1,
-        product: {
-          pid: 2,
-          name: 'The Rosetta Stone',
-          price: 11.99
-        },
-        shipping: {
-          customer: 'John Smith',
-          address: {
-            street: '10 Downing Street',
-            postcode: 'SW1A 2AA',
-            city: 'London',
-            country: 'UK',
-            phone: '+441234567890'
-          }
-        },
-        rated: false,
-        date: new Date(2021, 2, 24)
-      }
-    ],
     seller: {
       id: 1,
       uid: 1,
