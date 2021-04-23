@@ -3,8 +3,22 @@
   max-width: 60%;
 }
 
+.form-box {
+  width: 40%;
+}
+
+@media only screen and (max-width: 1280px) {
+  .form-box {
+    width: 60%;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .container {
     max-width: 95%;
+  }
+
+  .form-box {
+    width: 100%;
   }
 }

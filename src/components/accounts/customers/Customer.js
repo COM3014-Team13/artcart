@@ -4,7 +4,7 @@ import { AppBar, Button, Grid, Tab, Typography } from '@material-ui/core';
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
 
 import AddressCard from './AddressCard';
-import Orders from '../shared/Orders';
+import Orders from '../../orders/Orders';
 
 const Customer = ({ customer, orders }) => {
   const { addresses } = customer;

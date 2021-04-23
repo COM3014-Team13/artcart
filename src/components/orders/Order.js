@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
-import OrderContext from '../../../context/order/orderContext';
+import { Link } from 'react-router-dom';
+import OrderContext from '../../context/order/orderContext';
 import {
   Box,
   Button,
@@ -9,7 +10,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-import AddressCard from '../customers/AddressCard';
+import AddressCard from '../accounts/customers/AddressCard';
 
 import StarIcon from '@material-ui/icons/Star';
 
@@ -45,14 +46,16 @@ const Order = () => {
                 </CardContent>
               </Card>
               <br />
-              <Button
-                variant='contained'
-                color='primary'
-                size='large'
-                startIcon={<StarIcon />}
-              >
-                Leave A Review
-              </Button>
+              <Link to={`/orders/${id}/newrating`}>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  size='large'
+                  startIcon={<StarIcon />}
+                >
+                  Leave A Review
+                </Button>
+              </Link>
             </Grid>
           </Grid>
         </CardContent>

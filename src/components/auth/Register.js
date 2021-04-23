@@ -19,13 +19,6 @@ const Register = () => {
 
   const { name, email, password, confirmPassword } = user;
 
-  const big = useMediaQuery({
-    query: '(min-width: 1200px)'
-  });
-  const med = useMediaQuery({
-    query: '(min-width: 500px)'
-  });
-
   const onChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -41,11 +34,7 @@ const Register = () => {
   };
 
   return (
-    <Box
-      width={big ? '30%' : med ? '60%' : '100%'}
-      margin='auto'
-      marginTop='10%'
-    >
+    <Box className='form-box' margin='auto' marginTop='10%'>
       <Card raised>
         <CardContent>
           <Typography variant='h4' align='center'>
