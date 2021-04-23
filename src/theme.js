@@ -9,7 +9,7 @@ const theme = createMuiTheme({
       main: deepPurple[300]
     },
     secondary: {
-      main: '#00FFFF'
+      main: deepPurple[100]
     },
     error: {
       main: red.A400

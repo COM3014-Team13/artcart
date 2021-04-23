@@ -6,15 +6,14 @@ import Seller from './sellers/Seller';
 
 const Account = () => {
   const authContext = useContext(AuthContext);
-  const { user, customer, seller } = authContext;
+  const { user, customer, orders, seller } = authContext;
 
   return (
     <div>
-      <div> Account Page for {user.name}</div>
       {user.role === 'customer' ? (
-        <Customer customer={customer} />
+        <Customer customer={customer} orders={orders} />
       ) : user.role === 'seller' ? (
-        <Seller seller={seller} />
+        <Seller seller={seller} orders={orders} />
       ) : (
         <div>Loading</div>
       )}
