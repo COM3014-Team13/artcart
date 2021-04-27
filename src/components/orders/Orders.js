@@ -25,9 +25,15 @@ const Orders = ({ orders }) => {
         <TableBody>
           {orders.map(order => (
             <TableRow key={order.id}>
-              <TableCell component='th' scope='row'>
-                {order.id}
-              </TableCell>
+              <Link to={`/orders/${order.id}`}>
+                <TableCell
+                  component='th'
+                  scope='row'
+                  style={{ color: 'blue', textDecoration: 'underline' }}
+                >
+                  {order.id}
+                </TableCell>
+              </Link>
               <TableCell>{order.date.toLocaleString()}</TableCell>
               <TableCell>£{order.product.price}</TableCell>
               <TableCell>

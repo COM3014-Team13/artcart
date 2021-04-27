@@ -35,7 +35,7 @@ const Order = () => {
                   <Grid container spacing={1}>
                     <Grid item md={6} center>
                       <Box display='flex' justifyContent='center'>
-                        <img src={product.image_url} width='100px' alt='' />
+                        <img src={product.image_url} width='125px' alt='' />
                       </Box>
                     </Grid>
                     <Grid item xs='6'>

@@ -5,6 +5,9 @@ import {
   Card,
   CardContent,
   Button,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
   TextField,
   Typography
 } from '@material-ui/core';
@@ -13,11 +16,12 @@ const Register = () => {
   const [user, setUser] = useState({
     name: '',
     email: '',
+    type: 'c',
     password: '',
     confirmPassword: ''
   });
 
-  const { name, email, password, confirmPassword } = user;
+  const { name, email, type, password, confirmPassword } = user;
 
   const onChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -62,6 +66,25 @@ const Register = () => {
             />
             <br />
             <br />
+
+            <RadioGroup
+              aria-label='gender'
+              name='type'
+              value={type}
+              onChange={onChange}
+              style={{ display: 'flex', alignContent: 'center' }}
+            >
+              <FormControlLabel
+                value='c'
+                control={<Radio color='primary' />}
+                label='Customer'
+              />
+              <FormControlLabel
+                value='s'
+                control={<Radio color='primary' />}
+                label='Seller'
+              />
+            </RadioGroup>
             <TextField
               error={password.length > 0 && password.length < 8}
               label='Password'

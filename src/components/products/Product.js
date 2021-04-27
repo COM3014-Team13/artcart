@@ -24,7 +24,7 @@ const Product = () => {
   return (
     <Box paddingTop='2%'>
       <Grid container spacing={3}>
-        <Grid item xs={8}>
+        <Grid item xs={12} lg={8}>
           <Card>
             <Box paddingY='10px' display='flex' justifyContent='center'>
               <img
@@ -36,7 +36,7 @@ const Product = () => {
             </Box>
           </Card>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} lg={4}>
           <Card>
             <CardContent align='center'>
               <Typography variant='h4'>{title}</Typography>

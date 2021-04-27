@@ -14,9 +14,9 @@ const Account = () => {
   return (
     <div>
       {user.role === 'customer' ? (
-        <Customer customer={customer} orders={orders} />
+        <Customer user={user} customer={customer} orders={orders} />
       ) : user.role === 'seller' ? (
-        <Seller seller={seller} orders={orders} />
+        <Seller user={user} seller={seller} orders={orders} />
       ) : (
         <div>Loading</div>
       )}
