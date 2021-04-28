@@ -1,12 +1,18 @@
 import mongoose from 'mongoose';
 import { Password } from '../services/password';
 
+
+enum userRole {
+    "seller","customer"
+}
+
 // An interface that describes the properties that are required to create new users.
 
 interface UserAttrs {
     email: string;
     password: string;
     name: string;
+    role: userRole;
 }
 
 //An interface that describes the properties that a user model has.
@@ -21,6 +27,7 @@ interface UserDoc extends mongoose.Document{
     email: string;
     password: string;
     name: string;
+    role: userRole;
 }
 
 const userSchema = new mongoose.Schema({
@@ -36,7 +43,13 @@ const userSchema = new mongoose.Schema({
     name:{
         type:String,
         required: true
+    },
+    role:{
+        type:String,
+        enum: ["customer","seller"],
+        required: true
     }
+
 },{
     toJSON: { 
         transform(doc, ret) {
@@ -67,10 +80,5 @@ const buildUser = (attrs: UserAttrs) => {
     return new User(attrs);
 };
 
-// const user = User.build({
-//     email:'test@abv.bg',
-//     password:'test123',
-//     name: 'John'
-// });
 
 export { User};
