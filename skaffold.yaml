@@ -16,3 +16,12 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: kristiyandobrev/products-microservice
+      context: ../products-microservice
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+            
