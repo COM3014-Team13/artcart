@@ -1,10 +1,10 @@
 {
   "name": "@com3014/common",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
-  "files":[
+  "files": [
     "build/**/*"
   ],
   "scripts": {
