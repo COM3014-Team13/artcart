@@ -9,7 +9,7 @@ const AuthState = props => {
       id: 1,
       name: 'John Smith',
       email: 'john@smith.com',
-      role: 'customer'
+      role: 'seller'
     },
     customer: {
       id: 1,
@@ -50,10 +50,35 @@ const AuthState = props => {
           }
         ]
       }
+    },
+    publicSeller: {
+      id: 1,
+      uid: 1,
+      name: 'John Smith',
+      email: 'john@smith.com',
+      products: ['1', '2'],
+      ratings: {
+        num_ratings: 2,
+        rating_list: [
+          {
+            value: 4,
+            review: 'Good service fast delivery.'
+          },
+          {
+            value: 3,
+            review: 'Beautiful art piece, shipping was slow.'
+          }
+        ]
+      }
     }
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
+
+  const getPublicSeller = () => {
+    console.log('getPublicSeller');
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -61,7 +86,9 @@ const AuthState = props => {
         user: state.user,
         customer: state.customer,
         orders: state.orders,
-        seller: state.seller
+        seller: state.seller,
+        publicSeller: state.publicSeller,
+        getPublicSeller
       }}
     >
       {props.children}

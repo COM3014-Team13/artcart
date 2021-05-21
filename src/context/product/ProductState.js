@@ -81,13 +81,18 @@ const ProductState = props => {
     console.log('Get Product!');
   };
 
+  const getPublicSellerProducts = id => {
+    console.log('getPublicSellerProducts');
+  };
+
   return (
     <ProductContext.Provider
       value={{
         products: state.products,
         product: state.product,
         getProducts,
-        getProduct
+        getProduct,
+        getPublicSellerProducts
       }}
     >
       {props.children}
