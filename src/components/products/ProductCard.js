@@ -12,7 +12,7 @@ const ProductCard = ({ product }) => {
   const { id, title, price, image_url, desc } = product;
 
   return (
-    <Link to={'/products/' + id} style={{ textDecoration: 'none' }}>
+    <Link to={`/product/${id}`} style={{ textDecoration: 'none' }}>
       <Card>
         <CardActionArea>
           <CardMedia

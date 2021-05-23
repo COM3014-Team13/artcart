@@ -2,14 +2,13 @@ import React, { useContext, useEffect } from 'react';
 import AuthContext from '../../../context/auth/authContext';
 import ProductContext from '../../../context/product/productContext';
 import { Grid, List, Typography } from '@material-ui/core';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import RatingItem from './RatingItem';
 import ProductCard from '../../products/ProductCard';
 
 const PublicSeller = props => {
   const authContext = useContext(AuthContext);
-  const { publicSeller, getPublicSeller, getPublicUser } = authContext;
+  const { publicSeller, getPublicSeller } = authContext;
   const { name, email, ratings } = publicSeller;
 
   const productContext = useContext(ProductContext);
@@ -35,8 +34,8 @@ const PublicSeller = props => {
           <List>
             <Grid container spacing={3}>
               {products.map(product => (
-                <Grid item xs={5}>
-                  <ProductCard key={product.id} product={product} />
+                <Grid item xs={5} key={product.id}>
+                  <ProductCard product={product} />
                 </Grid>
               ))}
             </Grid>

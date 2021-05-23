@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import ProductContext from '../../context/product/productContext';
 import {
   Box,
@@ -12,7 +13,7 @@ import Rating from '@material-ui/lab/Rating';
 import PersonIcon from '@material-ui/icons/Person';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 
-const Product = () => {
+const Product = props => {
   const productContext = useContext(ProductContext);
   const { title, price, image_url, desc, seller } = productContext.product;
 
@@ -45,7 +46,7 @@ const Product = () => {
                   fontSize='small'
                   style={{ verticalAlign: '-3.5px' }}
                 />
-                {seller.name}
+                <Link to={`/account/${seller.id}`}>{seller.name}</Link>
                 <br />
                 <Rating
                   name='read-only'
@@ -60,14 +61,16 @@ const Product = () => {
                 {desc.info}
                 <br />
                 <br />
-                <Button
-                  variant='contained'
-                  color='primary'
-                  size='large'
-                  startIcon={<ShoppingCart />}
-                >
-                  Buy Now
-                </Button>
+                <Link to={`${props.match.params.id}/checkout`}>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    size='large'
+                    startIcon={<ShoppingCart />}
+                  >
+                    Buy Now
+                  </Button>
+                </Link>
               </Typography>
             </CardContent>
           </Card>

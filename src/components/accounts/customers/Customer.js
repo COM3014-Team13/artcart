@@ -43,7 +43,7 @@ const Customer = ({ user, customer, orders }) => {
         <TabPanel value='1'>
           <Grid container spacing={3}>
             <Grid item xs={2} alignItems='right'>
-              <AccountCircleIcon style={{ height: '50%', width: '100%' }} />
+              <AccountCircleIcon style={{ height: '5em', width: '100%' }} />
             </Grid>
             <Grid item xs={10}>
               <Typography variant='h4'>{user.name}</Typography>

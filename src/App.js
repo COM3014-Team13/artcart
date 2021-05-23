@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
 import Product from './components/products/Product';
+import Checkout from './components/products/Checkout';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Account from './components/accounts/Account';
@@ -26,7 +27,12 @@ function App() {
               <div className='container'>
                 <Switch>
                   <Route exact path='/' component={Home} />
-                  <Route exact path='/products/:id' component={Product} />
+                  <Route exact path='/product/:id' component={Product} />
+                  <Route
+                    exact
+                    path='/product/:id/checkout'
+                    component={Checkout}
+                  />
                   <Route exact path='/register' component={Register} />
                   <Route exact path='/login' component={Login} />
                   <Route exact path='/account' component={Account} />

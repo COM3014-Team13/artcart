@@ -64,6 +64,26 @@ const ProductState = props => {
         type: 'Oil Painting',
         info: 'A masterpiece by the Post-Impressionist genius.'
       }
+    },
+    formProduct: {
+      id: 2,
+      seller: {
+        id: 'def456',
+        name: 'Jim Smith',
+        rating: 3.5
+      },
+      title: 'The Starry Night',
+      price: {
+        value: 18.99,
+        discount: 0.35
+      },
+      image_url: 'https://i.imgur.com/dQghycI.jpg',
+      desc: {
+        date: new Date(1889, 5, 1),
+        artist: 'Vincent van Gogh',
+        type: 'Oil Painting',
+        info: 'A masterpiece by the Post-Impressionist genius.'
+      }
     }
   };
 
@@ -85,14 +105,24 @@ const ProductState = props => {
     console.log('getPublicSellerProducts');
   };
 
+  const setFormProduct = id => {
+    console.log('setFormProduct');
+  };
+  const clearFormProduct = () => {
+    console.log('clearFormProduct');
+  };
+
   return (
     <ProductContext.Provider
       value={{
         products: state.products,
         product: state.product,
+        formProduct: state.formProduct,
         getProducts,
         getProduct,
-        getPublicSellerProducts
+        getPublicSellerProducts,
+        setFormProduct,
+        clearFormProduct
       }}
     >
       {props.children}

@@ -14,6 +14,7 @@ import {
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
 import PasswordForm from '../shared/PasswordForm';
 import ProductForm from './ProductForm';
+import EditProductForm from './EditProductForm';
 import Orders from '../../orders/Orders';
 import ProductCard from '../../products/ProductCard';
 import RatingItem from './RatingItem';
@@ -23,11 +24,17 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 const Seller = ({ user, seller, orders }) => {
   const { ratings } = seller;
   const productContext = useContext(ProductContext);
-  const { products, getPublicSellerProducts } = productContext;
+  const {
+    products,
+    getPublicSellerProducts,
+    setFormProduct,
+    clearFormProduct
+  } = productContext;
   const [value, setValue] = useState('1');
   const [modal, setModal] = useState({
     password: false,
-    product: false
+    product: false,
+    edit: false
   });
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -35,6 +42,37 @@ const Seller = ({ user, seller, orders }) => {
 
   return (
     <div>
+      <Modal
+        open={modal.product}
+        onClose={() => {
+          setModal({ ...modal, product: false });
+        }}
+        aria-labelledby='simple-modal-title'
+        aria-describedby='simple-modal-description'
+      >
+        <ProductForm />
+      </Modal>
+      <Modal
+        open={modal.password}
+        onClose={() => {
+          setModal({ ...modal, password: false });
+        }}
+        aria-labelledby='simple-modal-title'
+        aria-describedby='simple-modal-description'
+      >
+        <PasswordForm />
+      </Modal>
+      <Modal
+        open={modal.edit}
+        onClose={() => {
+          setModal({ ...modal, edit: false });
+          clearFormProduct();
+        }}
+        aria-labelledby='simple-modal-title'
+        aria-describedby='simple-modal-description'
+      >
+        <EditProductForm />
+      </Modal>
       <Typography variant='h2'>Your Account</Typography>
       <TabContext value={value}>
         <AppBar position='static'>
@@ -47,7 +85,7 @@ const Seller = ({ user, seller, orders }) => {
         <TabPanel value='1'>
           <Grid container spacing={3}>
             <Grid item xs={2} alignItems='right'>
-              <AccountCircleIcon style={{ height: '50%', width: '100%' }} />
+              <AccountCircleIcon style={{ height: '5em', width: '100%' }} />
             </Grid>
             <Grid item xs={10}>
               <Typography variant='h4'>{user.name}</Typography>
@@ -58,21 +96,22 @@ const Seller = ({ user, seller, orders }) => {
               <Button
                 variant='contained'
                 onClick={() => {
+                  setModal({ ...modal, product: true });
+                }}
+              >
+                Add New Product
+              </Button>
+              <br />
+              <br />
+              <Button
+                variant='contained'
+                onClick={() => {
                   setModal({ ...modal, password: true });
                 }}
               >
                 Change Password
               </Button>
-              <Modal
-                open={modal.password}
-                onClose={() => {
-                  setModal({ ...modal, password: false });
-                }}
-                aria-labelledby='simple-modal-title'
-                aria-describedby='simple-modal-description'
-              >
-                <PasswordForm />
-              </Modal>
+
               <br />
               <br />
               <Typography variant='h4'> Ratings</Typography>
@@ -88,26 +127,27 @@ const Seller = ({ user, seller, orders }) => {
           <Button
             variant='contained'
             onClick={() => {
-              setModal({ ...modal, address: true });
+              setModal({ ...modal, product: true });
             }}
           >
             Add New Product
           </Button>
-          <Modal
-            open={modal.address}
-            onClose={() => {
-              setModal({ ...modal, address: false });
-            }}
-            aria-labelledby='simple-modal-title'
-            aria-describedby='simple-modal-description'
-          >
-            <ProductForm />
-          </Modal>
           <br />
           <br />
           <Grid container spacing={3}>
             {products.map(product => (
-              <Grid item xs={12} md={6} lg={4}>
+              <Grid item xs={12} md={6} lg={4} key={product.id}>
+                <Link>
+                  <Button
+                    variant='contained'
+                    onClick={() => {
+                      setFormProduct(product.id);
+                      setModal({ ...modal, edit: true });
+                    }}
+                  >
+                    Edit Product
+                  </Button>
+                </Link>
                 <ProductCard product={product} />
               </Grid>
             ))}
