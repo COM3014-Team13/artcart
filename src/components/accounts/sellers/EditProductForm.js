@@ -10,7 +10,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-const EditProductForm = () => {
+const EditProductForm = ({ closeEditProduct }) => {
   const productContext = useContext(ProductContext);
   const { formProduct } = productContext;
 
@@ -32,6 +32,7 @@ const EditProductForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
+    closeEditProduct();
     console.log(product);
   };
   return (

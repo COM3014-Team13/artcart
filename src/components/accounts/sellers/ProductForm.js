@@ -9,7 +9,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-const ProductForm = () => {
+const ProductForm = ({ closeProduct }) => {
   const [product, setProduct] = useState({
     title: '',
     image_url: '',
@@ -28,6 +28,7 @@ const ProductForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
+    closeProduct();
     console.log(product);
   };
 

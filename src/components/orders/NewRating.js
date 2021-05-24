@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 
-const NewRating = () => {
+const NewRating = ({ closeModal }) => {
   const [rating, setRating] = useState({
     value: 0,
     review: ''
@@ -23,7 +23,12 @@ const NewRating = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log(rating);
+    if (value > 0) {
+      closeModal();
+      console.log(rating);
+    } else {
+      console.log('Rate above 0!');
+    }
   };
 
   return (

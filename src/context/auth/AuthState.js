@@ -9,7 +9,7 @@ const AuthState = props => {
       id: 1,
       name: 'John Smith',
       email: 'john@smith.com',
-      role: 'seller'
+      role: 'customer'
     },
     customer: {
       id: 1,

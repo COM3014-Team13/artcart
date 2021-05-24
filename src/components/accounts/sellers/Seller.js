@@ -21,7 +21,8 @@ import RatingItem from './RatingItem';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const Seller = ({ user, seller, orders }) => {
+const Seller = props => {
+  const { user, seller, orders } = props;
   const { ratings } = seller;
   const productContext = useContext(ProductContext);
   const {
@@ -50,7 +51,11 @@ const Seller = ({ user, seller, orders }) => {
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
       >
-        <ProductForm />
+        <ProductForm
+          closeProduct={() => {
+            setModal({ ...modal, product: false });
+          }}
+        />
       </Modal>
       <Modal
         open={modal.password}
@@ -60,7 +65,11 @@ const Seller = ({ user, seller, orders }) => {
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
       >
-        <PasswordForm />
+        <PasswordForm
+          closePassword={() => {
+            setModal({ ...modal, password: false });
+          }}
+        />
       </Modal>
       <Modal
         open={modal.edit}
@@ -71,7 +80,12 @@ const Seller = ({ user, seller, orders }) => {
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
       >
-        <EditProductForm />
+        <EditProductForm
+          closeEditProduct={() => {
+            setModal({ ...modal, edit: false });
+            clearFormProduct();
+          }}
+        />
       </Modal>
       <Typography variant='h2'>Your Account</Typography>
       <TabContext value={value}>

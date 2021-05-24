@@ -8,7 +8,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-const AddressForm = () => {
+const AddressForm = ({ closeAddress }) => {
   const [address, setAddress] = useState({
     name: '',
     street: '',
@@ -26,7 +26,7 @@ const AddressForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-
+    closeAddress();
     console.log(address);
   };
 

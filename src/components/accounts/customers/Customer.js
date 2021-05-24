@@ -31,6 +31,34 @@ const Customer = ({ user, customer, orders }) => {
 
   return (
     <div>
+      <Modal
+        open={modal.password}
+        onClose={() => {
+          setModal({ ...modal, password: false });
+        }}
+        aria-labelledby='simple-modal-title'
+        aria-describedby='simple-modal-description'
+      >
+        <PasswordForm
+          closePassword={() => {
+            setModal({ ...modal, password: false });
+          }}
+        />
+      </Modal>
+      <Modal
+        open={modal.address}
+        onClose={() => {
+          setModal({ ...modal, address: false });
+        }}
+        aria-labelledby='simple-modal-title'
+        aria-describedby='simple-modal-description'
+      >
+        <AddressForm
+          closeAddress={() => {
+            setModal({ ...modal, address: false });
+          }}
+        />
+      </Modal>
       <Typography variant='h2'>Your Account</Typography>
       <TabContext value={value}>
         <AppBar position='static'>
@@ -59,16 +87,6 @@ const Customer = ({ user, customer, orders }) => {
               >
                 Change Password
               </Button>
-              <Modal
-                open={modal.password}
-                onClose={() => {
-                  setModal({ ...modal, password: false });
-                }}
-                aria-labelledby='simple-modal-title'
-                aria-describedby='simple-modal-description'
-              >
-                <PasswordForm />
-              </Modal>
             </Grid>
           </Grid>
         </TabPanel>
@@ -81,16 +99,7 @@ const Customer = ({ user, customer, orders }) => {
           >
             Add New Address
           </Button>
-          <Modal
-            open={modal.address}
-            onClose={() => {
-              setModal({ ...modal, address: false });
-            }}
-            aria-labelledby='simple-modal-title'
-            aria-describedby='simple-modal-description'
-          >
-            <AddressForm />
-          </Modal>
+
           <br />
           <br />
           <Grid container spacing={3}>

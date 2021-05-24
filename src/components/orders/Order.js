@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import OrderContext from '../../context/order/orderContext';
 import {
@@ -7,10 +7,12 @@ import {
   Card,
   CardContent,
   Grid,
+  Modal,
   Typography
 } from '@material-ui/core';
 
 import AddressCard from '../accounts/customers/AddressCard';
+import NewRating from './NewRating';
 
 import StarIcon from '@material-ui/icons/Star';
 
@@ -18,8 +20,23 @@ const Order = () => {
   const orderContext = useContext(OrderContext);
   const { order } = orderContext;
   const { id, product, shipping, rated, date } = order;
+
+  const [open, setOpen] = useState(false);
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
+      <Modal
+        open={open}
+        onClose={closeModal}
+        aria-labelledby='simple-modal-title'
+        aria-describedby='simple-modal-description'
+      >
+        <NewRating closeModal={closeModal} />
+      </Modal>
       <Typography variant='h2'>Order #{id}</Typography>
       <Card>
         <CardContent>
@@ -46,16 +63,17 @@ const Order = () => {
                 </CardContent>
               </Card>
               <br />
-              <Link to={`/orders/${id}/newrating`}>
-                <Button
-                  variant='contained'
-                  color='primary'
-                  size='large'
-                  startIcon={<StarIcon />}
-                >
-                  Leave A Review
-                </Button>
-              </Link>
+              <Button
+                variant='contained'
+                color='primary'
+                size='large'
+                startIcon={<StarIcon />}
+                onClick={() => {
+                  setOpen(true);
+                }}
+              >
+                Leave A Review
+              </Button>
             </Grid>
           </Grid>
         </CardContent>

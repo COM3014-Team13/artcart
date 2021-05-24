@@ -8,7 +8,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-const PasswordForm = () => {
+const PasswordForm = ({ closePassword }) => {
   const [passwords, setPasswords] = useState({
     current: '',
     newPassword: '',
@@ -23,6 +23,7 @@ const PasswordForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
+    closePassword();
     console.log(passwords);
   };
 

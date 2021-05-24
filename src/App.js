@@ -10,7 +10,6 @@ import Login from './components/auth/Login';
 import Account from './components/accounts/Account';
 import PublicSeller from './components/accounts/sellers/PublicSeller';
 import Order from './components/orders/Order';
-import NewRating from './components/orders/NewRating';
 
 import ProductState from './context/product/ProductState';
 import AuthState from './context/auth/AuthState';
@@ -38,11 +37,6 @@ function App() {
                   <Route exact path='/account' component={Account} />
                   <Route exact path='/account/:id' component={PublicSeller} />
                   <Route exact path='/orders/:id' component={Order} />
-                  <Route
-                    exact
-                    path='/orders/:id/newrating'
-                    component={NewRating}
-                  />
                 </Switch>
               </div>
             </div>
