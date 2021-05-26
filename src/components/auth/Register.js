@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
+import React, { useContext, useState } from 'react';
 import {
   Box,
   Card,
@@ -12,11 +11,15 @@ import {
   Typography
 } from '@material-ui/core';
 
+import AuthContext from '../../context/auth/authContext';
+
 const Register = () => {
+  const authContext = useContext(AuthContext);
+  const { register } = authContext;
   const [user, setUser] = useState({
     name: '',
     email: '',
-    type: 'c',
+    type: 'customer',
     password: '',
     confirmPassword: ''
   });
@@ -33,6 +36,7 @@ const Register = () => {
     if (password !== confirmPassword) {
       console.log('Passwords do not match.');
     } else {
+      register({ name, email, role: type, password });
       console.log(user);
     }
   };
@@ -68,19 +72,19 @@ const Register = () => {
             <br />
 
             <RadioGroup
-              aria-label='gender'
+              aria-label='role'
               name='type'
               value={type}
               onChange={onChange}
               style={{ display: 'flex', alignContent: 'center' }}
             >
               <FormControlLabel
-                value='c'
+                value='customer'
                 control={<Radio color='primary' />}
                 label='Customer'
               />
               <FormControlLabel
-                value='s'
+                value='seller'
                 control={<Radio color='primary' />}
                 label='Seller'
               />

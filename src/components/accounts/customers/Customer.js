@@ -121,7 +121,7 @@ const Customer = ({ user, customer, orders }) => {
 Customer.propTypes = {
   user: PropTypes.object.isRequired,
   customer: PropTypes.object.isRequired,
-  orders: PropTypes.object.isRequired
+  orders: PropTypes.array.isRequired
 };
 
 export default Customer;

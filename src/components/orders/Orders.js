@@ -25,7 +25,7 @@ const Orders = ({ orders }) => {
         <TableBody>
           {orders.map(order => (
             <TableRow key={order.id}>
-              <Link to={`/orders/${order.id}`}>
+              <Link to={`/order/${order.id}`}>
                 <TableCell
                   component='th'
                   scope='row'
@@ -37,7 +37,7 @@ const Orders = ({ orders }) => {
               <TableCell>{order.date.toLocaleString()}</TableCell>
               <TableCell>£{order.product.price}</TableCell>
               <TableCell>
-                <Link to={`/orders/${order.id}`}>View Order</Link>
+                <Link to={`/order/${order.id}`}>View Order</Link>
               </TableCell>
             </TableRow>
           ))}

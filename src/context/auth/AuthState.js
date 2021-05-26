@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
 
@@ -75,6 +76,36 @@ const AuthState = props => {
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  const register = async formData => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    try {
+      const res = await axios.post('/api/user', formData, config);
+      console.log('good');
+    } catch (err) {
+      console.log('bad');
+    }
+  };
+
+  const login = async formData => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    try {
+      const res = await axios.post('/api/auth', formData, config);
+      console.log(res.data);
+    } catch (err) {
+      console.log('bad');
+    }
+  };
+
   const getPublicSeller = () => {
     console.log('getPublicSeller');
   };
@@ -88,6 +119,8 @@ const AuthState = props => {
         orders: state.orders,
         seller: state.seller,
         publicSeller: state.publicSeller,
+        register,
+        login,
         getPublicSeller
       }}
     >

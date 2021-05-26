@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import {
   Box,
@@ -9,7 +9,11 @@ import {
   Typography
 } from '@material-ui/core';
 
+import AuthContext from '../../context/auth/authContext';
+
 const Login = () => {
+  const authContext = useContext(AuthContext);
+  const { login } = authContext;
   const [user, setUser] = useState({
     email: '',
     password: ''
@@ -23,6 +27,7 @@ const Login = () => {
 
   const onSubmit = e => {
     e.preventDefault();
+    login(user);
     console.log(user);
   };
 
