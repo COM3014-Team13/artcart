@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-microservice-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: products-microservice
+  template:
+    metadata:
+      labels:
+        app: products-microservice
+    spec:
+      containers:
+        - name: products-microservice
+          image: kristiyandobrev/products-microservice
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: products-microservice-srv
+spec:
+  selector:
+    app: products-microservice
+  ports:
+    - name: products-microservice
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
