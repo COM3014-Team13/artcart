@@ -22,8 +22,8 @@ import RatingItem from './RatingItem';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Seller = props => {
-  const { user, seller, orders } = props;
-  const { ratings } = seller;
+  const { currentUser, orders } = props;
+  const { user, ratings } = currentUser;
   const productContext = useContext(ProductContext);
   const {
     products,

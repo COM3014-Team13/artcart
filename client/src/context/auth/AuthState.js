@@ -5,7 +5,8 @@ import {
   REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  ADD_ADDRESS
 } from '../types';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
@@ -108,8 +109,22 @@ const AuthState = props => {
 
     try {
       const res = await axios.post('/api/auth', formData, config);
-      console.log('dispatching');
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+    } catch (err) {
+      dispatch({ type: LOGIN_FAIL, payload: err.response.data.msg });
+    }
+  };
+
+  const addAddress = async formData => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    try {
+      const res = await axios.post('/api/user/address', formData, config);
+      dispatch({ type: ADD_ADDRESS, payload: res.data });
     } catch (err) {
       dispatch({ type: LOGIN_FAIL, payload: err.response.data.msg });
     }
@@ -134,6 +149,7 @@ const AuthState = props => {
         register,
         login,
         logout,
+        addAddress,
         getPublicSeller
       }}
     >

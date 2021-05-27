@@ -6,7 +6,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  ADD_ADDRESS
 } from '../types';
 
 const authReducer = (state, action) => {
@@ -28,6 +29,14 @@ const authReducer = (state, action) => {
         ...state,
         currentUser: null,
         isAuthenticated: false
+      };
+    case ADD_ADDRESS:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          addresses: [action.payload.address, ...state.currentUser.addresses]
+        }
       };
     default:
       return state;

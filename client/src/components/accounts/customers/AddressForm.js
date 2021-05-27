@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Box,
   Button,
@@ -8,7 +8,11 @@ import {
   Typography
 } from '@material-ui/core';
 
+import AuthContext from '../../../context/auth/authContext';
+
 const AddressForm = ({ closeAddress }) => {
+  const authContext = useContext(AuthContext);
+  const { addAddress } = authContext;
   const [address, setAddress] = useState({
     name: '',
     street: '',
@@ -26,6 +30,7 @@ const AddressForm = ({ closeAddress }) => {
 
   const onSubmit = e => {
     e.preventDefault();
+    addAddress(address);
     closeAddress();
     console.log(address);
   };
