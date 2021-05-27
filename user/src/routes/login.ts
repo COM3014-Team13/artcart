@@ -4,6 +4,8 @@ import { Password } from '../services/password';
 import { User } from '../models/user';
 import jwt from 'jsonwebtoken';
 import { validateRequest, BadRequestError } from '@com3014/common';
+import { Customer } from '../models/customer';
+import { Seller } from '../models/seller';
 
 const router = express.Router();
 
@@ -15,7 +17,7 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { email, password, role } = req.body;
+    const { email, password } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
@@ -31,6 +33,13 @@ router.post(
       throw new BadRequestError('Invalid input');
     }
 
+    var obj;
+    if (existingUser.role.toString() === 'customer') {
+      obj = await Customer.findOne({ 'user.uid': existingUser._id });
+    } else {
+      obj = await Seller.findOne({ 'user.uid': existingUser._id });
+    }
+
     //Generate JWT
     const userJwt = jwt.sign(
       {
@@ -44,7 +53,7 @@ router.post(
       jwt: userJwt
     };
 
-    res.status(200).send(userJwt);
+    res.status(200).send({ token: userJwt, user: obj });
   }
 );
 

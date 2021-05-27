@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Box,
   Card,
@@ -13,9 +13,9 @@ import {
 
 import AuthContext from '../../context/auth/authContext';
 
-const Register = () => {
+const Register = props => {
   const authContext = useContext(AuthContext);
-  const { register } = authContext;
+  const { isAuthenticated, register } = authContext;
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -25,6 +25,12 @@ const Register = () => {
   });
 
   const { name, email, type, password, confirmPassword } = user;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+  }, [isAuthenticated, props.history]);
 
   const onChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });

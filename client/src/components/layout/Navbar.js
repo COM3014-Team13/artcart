@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import AuthContext from '../../context/auth/authContext';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -19,6 +20,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Navbar = () => {
+  const authContext = useContext(AuthContext);
+  const { isAuthenticated, currentUser, logout } = authContext;
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -65,21 +68,34 @@ const Navbar = () => {
 
   const desktopLinks = (
     <Fragment>
-      <Link to='/account' className={classes.link}>
-        <Button className={classes.navButton}>
-          <Typography variant='h5'>Account</Typography>
-        </Button>
-      </Link>
-      <Link to='/register' className={classes.link}>
-        <Button className={classes.navButton}>
-          <Typography variant='h5'>Register</Typography>
-        </Button>
-      </Link>
-      <Link to='/login' className={classes.link}>
-        <Button className={classes.navButton}>
-          <Typography variant='h5'>Login</Typography>
-        </Button>
-      </Link>
+      {isAuthenticated ? (
+        <Fragment>
+          <Typography variant='h5'>
+            {'Welcome, ' + currentUser.user.name}
+          </Typography>
+          <Link to='/account' className={classes.link}>
+            <Button className={classes.navButton}>
+              <Typography variant='h5'>Account</Typography>
+            </Button>
+          </Link>
+          <Button className={classes.navButton} onClick={logout}>
+            <Typography variant='h5'>Logout</Typography>
+          </Button>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <Link to='/register' className={classes.link}>
+            <Button className={classes.navButton}>
+              <Typography variant='h5'>Register</Typography>
+            </Button>
+          </Link>
+          <Link to='/login' className={classes.link}>
+            <Button className={classes.navButton}>
+              <Typography variant='h5'>Login</Typography>
+            </Button>
+          </Link>
+        </Fragment>
+      )}
     </Fragment>
   );
 

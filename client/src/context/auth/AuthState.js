@@ -1,11 +1,19 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT
+} from '../types';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
 
 const AuthState = props => {
   const initialState = {
-    isAuthenticated: true,
+    isAuthenticated: false,
+    currentUser: null,
     user: {
       id: 1,
       name: 'John Smith',
@@ -85,9 +93,9 @@ const AuthState = props => {
 
     try {
       const res = await axios.post('/api/user', formData, config);
-      console.log(res.data);
+      dispatch({ type: REGISTER_SUCCESS, payload: res.data });
     } catch (err) {
-      console.log('bad');
+      dispatch({ type: REGISTER_FAIL, payload: err.response.data.msg });
     }
   };
 
@@ -100,11 +108,14 @@ const AuthState = props => {
 
     try {
       const res = await axios.post('/api/auth', formData, config);
-      console.log(res.data);
+      console.log('dispatching');
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     } catch (err) {
-      console.log('bad');
+      dispatch({ type: LOGIN_FAIL, payload: err.response.data.msg });
     }
   };
+
+  const logout = () => dispatch({ type: LOGOUT });
 
   const getPublicSeller = () => {
     console.log('getPublicSeller');
@@ -114,6 +125,7 @@ const AuthState = props => {
     <AuthContext.Provider
       value={{
         isAuthenticated: state.isAuthenticated,
+        currentUser: state.currentUser,
         user: state.user,
         customer: state.customer,
         orders: state.orders,
@@ -121,6 +133,7 @@ const AuthState = props => {
         publicSeller: state.publicSeller,
         register,
         login,
+        logout,
         getPublicSeller
       }}
     >

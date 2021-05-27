@@ -77,7 +77,7 @@ router.post(
       jwt: userJwt
     };
 
-    res.status(201).send(obj);
+    res.status(201).send({ token: userJwt, user: obj });
   }
 );
 
