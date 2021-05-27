@@ -3,13 +3,13 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ../infra/k8s/*
+      - infra/k8s/*
 build:
   local:
     push: false
   artifacts:
     - image: kristiyandobrev/user
-      context: ../user
+      context: user
       docker:
         dockerfile: Dockerfile
       sync:
@@ -17,7 +17,7 @@ build:
           - src: 'src/**/*.ts'
             dest: .
     - image: kristiyandobrev/products-microservice
-      context: ../products-microservice
+      context: product
       docker:
         dockerfile: Dockerfile
       sync:
