@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host: website.dev
+    - host: localhost
       http:
         paths:
           - path: /api/user/?(.*)
@@ -18,5 +18,3 @@ spec:
             backend:
               serviceName: user-srv
               servicePort: 3000
-
-

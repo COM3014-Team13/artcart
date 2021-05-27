@@ -29,6 +29,7 @@ metadata:
 spec:
   selector:
     app: products-microservice
+  type: NodePort
   ports:
     - name: products-microservice
       protocol: TCP

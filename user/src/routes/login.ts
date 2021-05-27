@@ -3,52 +3,48 @@ import { body } from 'express-validator';
 import { Password } from '../services/password';
 import { User } from '../models/user';
 import jwt from 'jsonwebtoken';
-import { validateRequest, BadRequestError} from '@com3014/common';
+import { validateRequest, BadRequestError } from '@com3014/common';
 
 const router = express.Router();
 
 router.post(
   '/api/auth',
   [
-    body('email')
-      .isEmail()
-      .withMessage('Email must be valid'),
-    body('password')
-      .trim()
-      .notEmpty()
-      .withMessage('You must supply a password')
+    body('email').isEmail().withMessage('Email must be valid'),
+    body('password').trim().notEmpty().withMessage('You must supply a password')
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     const { email, password, role } = req.body;
 
-    const existingUser = await User.findOne({email});
-    if(!existingUser){
-        throw new BadRequestError('Invalid input');
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      throw new BadRequestError('Invalid input');
     }
 
-    const passwordsMatch = await Password.compare(existingUser.password, password);
+    const passwordsMatch = await Password.compare(
+      existingUser.password,
+      password
+    );
 
-    if(!passwordsMatch){
-        throw new BadRequestError('Invalid input');
+    if (!passwordsMatch) {
+      throw new BadRequestError('Invalid input');
     }
 
-        //Generate JWT
+    //Generate JWT
     const userJwt = jwt.sign(
-        {
-          id: existingUser.id,
-          email: existingUser.email,
-          role: existingUser.role
-        },
-        process.env.JWT_KEY!
-      );
+      {
+        id: existingUser.id
+      },
+      process.env.JWT_KEY!
+    );
 
     //Store it on session object
-    req.session = { 
-        jwt: userJwt
+    req.session = {
+      jwt: userJwt
     };
 
-    res.status(200).send(existingUser);
+    res.status(200).send(userJwt);
   }
 );
 

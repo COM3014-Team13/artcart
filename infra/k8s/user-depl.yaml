@@ -29,6 +29,7 @@ metadata:
 spec:
   selector:
     app: user
+  type: NodePort
   ports:
     - name: user
       protocol: TCP

@@ -85,7 +85,7 @@ const AuthState = props => {
 
     try {
       const res = await axios.post('/api/user', formData, config);
-      console.log('good');
+      console.log(res.data);
     } catch (err) {
       console.log('bad');
     }

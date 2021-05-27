@@ -37,7 +37,6 @@ const Register = () => {
       console.log('Passwords do not match.');
     } else {
       register({ name, email, role: type, password });
-      console.log(user);
     }
   };
 
