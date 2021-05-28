@@ -1,8 +1,37 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
+interface NestedUser {
+  uid: string;
+  name: string;
+  email: string;
+  role: string;
+}
+
+interface NestedAddress {
+  name: string;
+  street: string;
+  postcode: string;
+  city: string;
+  country: string;
+  phone: string;
+}
+
+interface NestedRating {
+  rating: number;
+  review: string;
+}
+
+interface NestedRatings {
+  num_ratings: number;
+  average_rating: number;
+  rating_list: Array<NestedRating>;
+}
+
 interface UserPayload {
-  obj: object;
+  user: NestedUser;
+  addresses?: Array<NestedAddress>;
+  ratings?: NestedRatings;
 }
 
 declare global {
