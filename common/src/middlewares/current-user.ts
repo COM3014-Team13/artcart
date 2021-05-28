@@ -29,6 +29,7 @@ interface NestedRatings {
 }
 
 interface UserPayload {
+  _id: string;
   user: NestedUser;
   addresses?: Array<NestedAddress>;
   ratings?: NestedRatings;
