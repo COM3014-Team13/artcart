@@ -6,7 +6,7 @@ import { Seller } from '../models/seller';
 
 import jwt from 'jsonwebtoken';
 
-import { validateRequest, BadRequestError } from '@com3014/common';
+import { validateRequest, BadRequestError, currentUser } from '@com3014/common';
 
 const router = express.Router();
 
@@ -67,7 +67,8 @@ router.post(
     //Generate JWT
     const userJwt = jwt.sign(
       {
-        id: user.id
+        id: user.id,
+        name: user.name        
       },
       process.env.JWT_KEY!
     );

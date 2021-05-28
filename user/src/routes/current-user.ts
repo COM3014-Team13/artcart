@@ -1,5 +1,5 @@
 import express from 'express';
-import { currentUser } from '@com3014/common';
+import { currentUser } from '../../../common/src/middlewares/current-user';
 import { User } from '../models/user';
 import { Customer } from '../models/customer';
 import { Seller } from '../models/seller';

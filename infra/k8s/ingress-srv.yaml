@@ -18,3 +18,12 @@ spec:
             backend:
               serviceName: user-srv
               servicePort: 3000
+          - path: /api/account/?(.*)
+            backend:
+              serviceName: products-microservice-srv
+              servicePort: 3000
+          - path: /api/products/?(.*)
+            backend:
+              serviceName: products-microservice-srv
+              servicePort: 3000     
+

@@ -3,7 +3,8 @@ import { body } from 'express-validator';
 import { Password } from '../services/password';
 import { User } from '../models/user';
 import jwt from 'jsonwebtoken';
-import { validateRequest, BadRequestError } from '@com3014/common';
+import {BadRequestError } from '@com3014/common';
+import { validateRequest } from '@com3014/common';
 import { Customer } from '../models/customer';
 import { Seller } from '../models/seller';
 
@@ -43,7 +44,8 @@ router.post(
     //Generate JWT
     const userJwt = jwt.sign(
       {
-        id: existingUser.id
+        id: existingUser.id,
+        name: existingUser.name
       },
       process.env.JWT_KEY!
     );
