@@ -25,6 +25,10 @@ const sellerSchema = new mongoose.Schema({
       type: Number,
       default: 0
     },
+    average_rating: {
+      type: Number,
+      default: 0
+    },
     rating_list: [
       {
         rating: {

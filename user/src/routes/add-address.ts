@@ -20,7 +20,10 @@ router.post(
   async (req: Request, res: Response) => {
     const { name, street, postcode, city, country, phone } = req.body;
 
-    var customer = await Customer.findOne({ 'user.uid': req.currentUser!.id });
+    var customer = await Customer.findOne({
+      'user.uid': req.currentUser!.user.uid
+    });
+
     if (!customer) {
       return res.status(401);
     }

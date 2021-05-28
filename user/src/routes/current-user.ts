@@ -1,5 +1,5 @@
 import express from 'express';
-import { currentUser } from '../../../common/src/middlewares/current-user';
+import { currentUser } from '@com3014/common';
 import { User } from '../models/user';
 import { Customer } from '../models/customer';
 import { Seller } from '../models/seller';
@@ -7,7 +7,8 @@ import { Seller } from '../models/seller';
 const router = express.Router();
 
 router.get('/api/user', currentUser, async (req, res) => {
-  var user = await User.findById(req.currentUser!.id);
+  var user = await User.findById(req.currentUser!.user.uid);
+
   if (!user) return res.send(null);
 
   var obj;

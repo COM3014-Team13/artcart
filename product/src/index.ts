@@ -3,16 +3,13 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
-import { createProductRouter} from './routes/newproduct';
-import { showProductRouter} from './routes/showproduct';
-import { showAllProductsRouter} from './routes/showallproducts';
-import { editProductRouter} from './routes/editproduct';
-import { showUserProductsRouter} from './routes/showuserproduct';
+import { createProductRouter } from './routes/newproduct';
+import { showProductRouter } from './routes/showproduct';
+import { showAllProductsRouter } from './routes/showallproducts';
+import { editProductRouter } from './routes/editproduct';
+import { showUserProductsRouter } from './routes/showuserproduct';
 
-
-import {errorHandler, NotFoundError, currentUser} from '@com3014/common';
-
-
+import { errorHandler, NotFoundError, currentUser } from '@com3014/common';
 
 const app = express();
 app.set('trust proxy', true);
@@ -31,10 +28,9 @@ app.use(showAllProductsRouter);
 app.use(editProductRouter);
 app.use(showUserProductsRouter);
 
-app.all('*', async (req,res) => {
-    throw new NotFoundError()
-}
-);
+app.all('*', async (req, res) => {
+  throw new NotFoundError();
+});
 
 app.use(errorHandler);
 
@@ -42,27 +38,27 @@ app.use(errorHandler);
 //     res.send('Login/Register!');
 //   });
 
-const start = async() => {
-
+const start = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined');
   }
 
   try {
-    await mongoose.connect('mongodb://products-microservice-mongo-srv:27017/products',{
-       useNewUrlParser: true,
-       useUnifiedTopology: true, 
-       useCreateIndex: true 
-    });
+    await mongoose.connect(
+      'mongodb://products-microservice-mongo-srv:27017/products',
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+      }
+    );
     console.log('Connected to MongoDB');
-  } catch (err){
+  } catch (err) {
     console.log(err);
-}
-app.listen(3000, () => {
+  }
+  app.listen(3000, () => {
     console.log('Listening on port 3000!!!!');
-});
-
+  });
 };
 
 start();
-

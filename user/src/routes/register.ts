@@ -56,22 +56,17 @@ router.post(
         },
         ratings: {
           num_ratings: 0,
+          average_rating: 0,
           ratings_list: []
         }
       });
       await obj.save();
     } else {
-      res.status(401).json({ msg: 'Invalid Role' });
+      return res.status(401).json({ msg: 'Invalid Role' });
     }
 
     //Generate JWT
-    const userJwt = jwt.sign(
-      {
-        id: user.id,
-        name: user.name        
-      },
-      process.env.JWT_KEY!
-    );
+    const userJwt = jwt.sign(obj.toJSON(), process.env.JWT_KEY!);
 
     //Store it on session object
     req.session = {
