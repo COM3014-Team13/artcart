@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Box,
   Card,
@@ -11,15 +10,21 @@ import {
 
 import AuthContext from '../../context/auth/authContext';
 
-const Login = () => {
+const Login = props => {
   const authContext = useContext(AuthContext);
-  const { login } = authContext;
+  const { isAuthenticated, login } = authContext;
   const [user, setUser] = useState({
     email: '',
     password: ''
   });
 
   const { email, password } = user;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+  }, [isAuthenticated, props.history]);
 
   const onChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -28,7 +33,6 @@ const Login = () => {
   const onSubmit = e => {
     e.preventDefault();
     login(user);
-    console.log(user);
   };
 
   return (

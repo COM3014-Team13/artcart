@@ -8,9 +8,9 @@ import { currentUserRouter } from './routes/current-user';
 import { loginRouter } from './routes/login';
 import { logoutRouter } from './routes/logout';
 import { registerRouter } from './routes/register';
-import {errorHandler} from '@com3014/common';
-import { NotFoundError} from '@com3014/common';
-
+import { errorHandler } from '@com3014/common';
+import { NotFoundError } from '@com3014/common';
+import { addAddressRouter } from './routes/add-address';
 
 const app = express();
 app.set('trust proxy', true);
@@ -22,16 +22,15 @@ app.use(
   })
 );
 
-
 app.use(currentUserRouter);
 app.use(loginRouter);
 app.use(logoutRouter);
 app.use(registerRouter);
+app.use(addAddressRouter);
 
-app.all('*', async (req,res) => {
-    throw new NotFoundError()
-}
-);
+app.all('*', async (req, res) => {
+  throw new NotFoundError();
+});
 
 app.use(errorHandler);
 
@@ -39,27 +38,24 @@ app.use(errorHandler);
 //     res.send('Login/Register!');
 //   });
 
-const start = async() => {
-
+const start = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined');
   }
 
   try {
-    await mongoose.connect('mongodb://user-mongo-srv:27017/user',{
-       useNewUrlParser: true,
-       useUnifiedTopology: true, 
-       useCreateIndex: true 
+    await mongoose.connect('mongodb://user-mongo-srv:27017/user', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
     });
     console.log('Connected to MongoDB');
-  } catch (err){
+  } catch (err) {
     console.log(err);
-}
-app.listen(3000, () => {
+  }
+  app.listen(3000, () => {
     console.log('Listening on port 3000!!!!');
-});
-
+  });
 };
 
 start();
-

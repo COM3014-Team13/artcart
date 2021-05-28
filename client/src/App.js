@@ -14,6 +14,11 @@ import Order from './components/orders/Order';
 import ProductState from './context/product/ProductState';
 import AuthState from './context/auth/AuthState';
 import OrderState from './context/order/OrderState';
+import setAuthToken from './utils/setAuthToken';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 function App() {
   return (

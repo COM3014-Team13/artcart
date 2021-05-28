@@ -1,5 +1,19 @@
 import mongoose from 'mongoose';
 
+interface CustomerAttrs {
+  user: object;
+  addresses: Array<object>;
+}
+
+interface CustomerModel extends mongoose.Model<CustomerDoc> {
+  build(attrs: CustomerAttrs): CustomerDoc;
+}
+
+interface CustomerDoc extends mongoose.Document {
+  user: object;
+  addresses: Array<object>;
+}
+
 const customerSchema = new mongoose.Schema({
   user: {
     uid: {
@@ -50,6 +64,13 @@ const customerSchema = new mongoose.Schema({
   ]
 });
 
-const Customer = mongoose.model('Customer', customerSchema);
+customerSchema.statics.build = (attrs: CustomerAttrs) => {
+  return new Customer(attrs);
+};
+
+const Customer = mongoose.model<CustomerDoc, CustomerModel>(
+  'Customer',
+  customerSchema
+);
 
 export { Customer };

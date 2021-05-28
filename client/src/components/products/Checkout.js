@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import ProductContext from '../../context/product/productContext';
+import AuthContext from '../../context/auth/authContext';
 import {
   Box,
   Button,
@@ -13,6 +14,16 @@ import PaymentIcon from '@material-ui/icons/Payment';
 const Checkout = props => {
   const productContext = useContext(ProductContext);
   const { product, getProduct } = productContext;
+
+  const authContext = useContext(AuthContext);
+  const { isAuthenticated } = authContext;
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      props.history.push('/register');
+    }
+  }, [isAuthenticated, props.history]);
+
   useEffect(() => {
     getProduct(props.match.params.id);
   }, []);

@@ -17,8 +17,8 @@ import Orders from '../../orders/Orders';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const Customer = ({ user, customer, orders }) => {
-  const { addresses } = customer;
+const Customer = ({ currentUser, orders }) => {
+  const { user, addresses } = currentUser;
   const [value, setValue] = useState('1');
   const [modal, setModal] = useState({
     password: false,
