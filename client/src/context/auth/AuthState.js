@@ -6,7 +6,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  ADD_ADDRESS
+  ADD_ADDRESS,
+  USER_LOADED,
+  AUTH_ERROR
 } from '../types';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
@@ -85,6 +87,16 @@ const AuthState = props => {
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  const loadUser = async () => {
+    try {
+      const res = await axios.get('/api/user');
+      if (res.data === null) throw 'exception';
+      dispatch({ type: USER_LOADED, payload: res.data });
+    } catch (err) {
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
+
   const register = async formData => {
     const config = {
       headers: {
@@ -130,7 +142,14 @@ const AuthState = props => {
     }
   };
 
-  const logout = () => dispatch({ type: LOGOUT });
+  const logout = async () => {
+    try {
+      await axios.post('/api/user/logout');
+      dispatch({ type: LOGOUT });
+    } catch (err) {
+      console.log('Logout Failed');
+    }
+  };
 
   const getPublicSeller = () => {
     console.log('getPublicSeller');
@@ -146,6 +165,7 @@ const AuthState = props => {
         orders: state.orders,
         seller: state.seller,
         publicSeller: state.publicSeller,
+        loadUser,
         register,
         login,
         logout,

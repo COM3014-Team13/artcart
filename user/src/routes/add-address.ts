@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { User } from '../models/user';
 import { validateRequest, currentUser } from '@com3014/common';
 import { Customer } from '../models/customer';
 

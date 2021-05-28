@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import AuthContext from '../../context/auth/authContext';
 import { Link } from 'react-router-dom';
@@ -21,9 +21,13 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Navbar = () => {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, currentUser, logout } = authContext;
+  const { isAuthenticated, currentUser, loadUser, logout } = authContext;
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  useEffect(() => {
+    loadUser();
+  }, []);
 
   const desktop = useMediaQuery({
     query: '(min-width: 800px)'
