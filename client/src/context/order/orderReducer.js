@@ -1,4 +1,9 @@
-import { GET_ORDERS, GET_ORDER } from '../types';
+import {
+  GET_ORDERS,
+  GET_ORDER,
+  ADD_ORDER,
+  RESET_ORDER_SUCCESS
+} from '../types';
 
 const orderReducer = (state, action) => {
   switch (action.type) {
@@ -11,6 +16,17 @@ const orderReducer = (state, action) => {
       return {
         ...state,
         order: action.payload
+      };
+    case ADD_ORDER:
+      return {
+        ...state,
+        order: [...state.orders, action.payload],
+        orderSuccess: true
+      };
+    case RESET_ORDER_SUCCESS:
+      return {
+        ...state,
+        orderSuccess: false
       };
     default:
       return state;

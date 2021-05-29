@@ -53,7 +53,7 @@ const Order = props => {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
               <Typography variant='h6'>Delivery To</Typography>
-              <AddressCard address={shipping.address} />
+              <AddressCard address={order && shipping.address} />
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant='h6'>Product Purchased</Typography>
@@ -62,7 +62,11 @@ const Order = props => {
                   <Grid container spacing={1}>
                     <Grid item md={6} center>
                       <Box display='flex' justifyContent='center'>
-                        <img src={product.image_url} width='125px' alt='' />
+                        <img
+                          src={order && product.image_url}
+                          width='125px'
+                          alt=''
+                        />
                       </Box>
                     </Grid>
                     <Grid item xs='6'>
@@ -73,7 +77,7 @@ const Order = props => {
                 </CardContent>
               </Card>
               <br />
-              {currentUser.user.role === 'customer' && !order.rated && (
+              {currentUser.user.role === 'customer' && !rated && (
                 <Button
                   variant='contained'
                   color='primary'

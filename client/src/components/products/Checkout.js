@@ -1,12 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import ProductContext from '../../context/product/productContext';
 import AuthContext from '../../context/auth/authContext';
+import OrderContext from '../../context/order/orderContext';
 import {
   Box,
   Button,
   Card,
   CardContent,
+  FormControl,
   Grid,
+  InputLabel,
+  MenuItem,
+  Select,
   Typography
 } from '@material-ui/core';
 import PaymentIcon from '@material-ui/icons/Payment';
@@ -16,7 +22,16 @@ const Checkout = props => {
   const { product, getProduct } = productContext;
 
   const authContext = useContext(AuthContext);
-  const { isAuthenticated } = authContext;
+  const { isAuthenticated, currentUser } = authContext;
+
+  const orderContext = useContext(OrderContext);
+  const { orderSuccess, addOrder, resetOrderSuccess } = orderContext;
+
+  const [address, setAddress] = useState({});
+
+  const onChange = e => {
+    setAddress(e.target.value);
+  };
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -25,6 +40,19 @@ const Checkout = props => {
   }, [isAuthenticated, props.history]);
 
   useEffect(() => {
+    if (orderSuccess) {
+      resetOrderSuccess();
+      props.history.push('/');
+    }
+  }, [orderSuccess, props.history]);
+
+  useEffect(() => {
+    if (currentUser && currentUser.user.role === 'seller') {
+      props.history.push(`/product/${props.match.params.id}`);
+    }
+    if (currentUser.addresses && currentUser.addresses.length > 0) {
+      setAddress(currentUser.addresses[0]);
+    }
     getProduct(props.match.params.id);
   }, []);
 
@@ -33,6 +61,13 @@ const Checkout = props => {
     month: 'long',
     year: 'numeric'
   });
+
+  const onClick = e => {
+    addOrder({
+      pid: props.match.params.id,
+      address: address
+    });
+  };
 
   return (
     <div>
@@ -52,11 +87,39 @@ const Checkout = props => {
                 <Typography>{date}</Typography>
               </Grid>
             </Grid>
+            <br />
+            <Typography variant='h6'>Deliver To</Typography>
+            <FormControl>
+              <InputLabel id='demo-simple-select-label'>Address</InputLabel>
+              <Select
+                labelId='demo-simple-select-label'
+                id='demo-simple-select'
+                value={address}
+                onChange={onChange}
+              >
+                {currentUser.addresses && currentUser.addresses.length > 0 ? (
+                  currentUser.addresses.map(address => (
+                    <MenuItem value={address}>
+                      {address.name}, {address.street}, {address.city},{' '}
+                      {address.postcode}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <Fragment>
+                    <div>You must first add an address to your account.</div>
+                    <Link to='/account'>Account</Link>
+                  </Fragment>
+                )}
+              </Select>
+            </FormControl>
+            <br />
+            <br />
             <Button
               variant='contained'
               color='primary'
               size='large'
               startIcon={<PaymentIcon />}
+              onClick={onClick}
             >
               Buy Now (£{price})
             </Button>
