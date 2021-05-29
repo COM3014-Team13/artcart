@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
 import OrderContext from '../../context/order/orderContext';
+import AuthContext from '../../context/auth/authContext';
 import {
   Box,
   Button,
@@ -16,12 +16,22 @@ import NewRating from './NewRating';
 
 import StarIcon from '@material-ui/icons/Star';
 
-const Order = () => {
+const Order = props => {
+  const authContext = useContext(AuthContext);
+  const { isAuthenticated, currentUser } = authContext;
   const orderContext = useContext(OrderContext);
-  const { order } = orderContext;
-  const { id, product, shipping, rated, date } = order;
+  const { order, getOrder } = orderContext;
+  const { _id, product, shipping, rated, date } = order;
+
+  useEffect(() => {
+    getOrder(props.match.params.id);
+  }, []);
 
   const [open, setOpen] = useState(false);
+
+  if (!isAuthenticated) {
+    return <div>{props.history.push('/register')}bruh</div>;
+  }
 
   const closeModal = () => {
     setOpen(false);
@@ -37,7 +47,7 @@ const Order = () => {
       >
         <NewRating closeModal={closeModal} />
       </Modal>
-      <Typography variant='h2'>Order #{id}</Typography>
+      <Typography variant='h2'>Order #{_id}</Typography>
       <Card>
         <CardContent>
           <Grid container spacing={3}>
@@ -56,24 +66,26 @@ const Order = () => {
                       </Box>
                     </Grid>
                     <Grid item xs='6'>
-                      <Typography>{product.name}</Typography>
+                      <Typography>{product.title}</Typography>
                       <Typography>£{product.price}</Typography>
                     </Grid>
                   </Grid>
                 </CardContent>
               </Card>
               <br />
-              <Button
-                variant='contained'
-                color='primary'
-                size='large'
-                startIcon={<StarIcon />}
-                onClick={() => {
-                  setOpen(true);
-                }}
-              >
-                Leave A Review
-              </Button>
+              {currentUser.user.role === 'customer' && !order.rated && (
+                <Button
+                  variant='contained'
+                  color='primary'
+                  size='large'
+                  startIcon={<StarIcon />}
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                >
+                  Leave A Review
+                </Button>
+              )}
             </Grid>
           </Grid>
         </CardContent>

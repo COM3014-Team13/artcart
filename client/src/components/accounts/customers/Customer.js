@@ -17,7 +17,7 @@ import Orders from '../../orders/Orders';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const Customer = ({ currentUser, orders }) => {
+const Customer = ({ currentUser }) => {
   const { user, addresses } = currentUser;
   const [value, setValue] = useState('1');
   const [modal, setModal] = useState({
@@ -111,7 +111,7 @@ const Customer = ({ currentUser, orders }) => {
           </Grid>
         </TabPanel>
         <TabPanel value='3'>
-          <Orders orders={orders} />
+          <Orders />
         </TabPanel>
       </TabContext>
     </div>

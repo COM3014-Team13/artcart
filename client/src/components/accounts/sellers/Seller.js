@@ -22,7 +22,7 @@ import RatingItem from './RatingItem';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Seller = props => {
-  const { currentUser, orders } = props;
+  const { currentUser } = props;
   const { user, ratings } = currentUser;
   const productContext = useContext(ProductContext);
   const { products, getSellerProducts, setFormProduct, clearFormProduct } =
@@ -169,7 +169,7 @@ const Seller = props => {
           </Grid>
         </TabPanel>
         <TabPanel value='3'>
-          <Orders orders={orders} />
+          <Orders />
         </TabPanel>
       </TabContext>
     </div>

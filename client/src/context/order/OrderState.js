@@ -1,4 +1,6 @@
 import React, { useReducer } from 'react';
+import axios from 'axios';
+import { GET_ORDERS, GET_ORDER } from '../types';
 import OrderContext from './orderContext';
 import orderReducer from './orderReducer';
 
@@ -77,12 +79,38 @@ const OrderState = props => {
     }
   };
 
+  // Get Orders
+  const getOrders = async () => {
+    // GET request to product microservice
+    try {
+      const res = await axios.get('/api/orders/');
+      dispatch({ type: GET_ORDERS, payload: res.data });
+    } catch (err) {
+      console.log('order error');
+      // dispatch({ type: PRODUCT_ERROR });
+    }
+  };
+
+  // Get Order
+  const getOrder = async id => {
+    // GET request to product microservice
+    try {
+      const res = await axios.get(`/api/orders/${id}`);
+      dispatch({ type: GET_ORDER, payload: res.data });
+    } catch (err) {
+      console.log('order error');
+      // dispatch({ type: PRODUCT_ERROR });
+    }
+  };
+
   const [state, dispatch] = useReducer(orderReducer, initialState);
   return (
     <OrderContext.Provider
       value={{
         orders: state.orders,
-        order: state.order
+        order: state.order,
+        getOrders,
+        getOrder
       }}
     >
       {props.children}

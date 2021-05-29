@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Paper,
@@ -10,7 +10,16 @@ import {
   TableRow
 } from '@material-ui/core';
 
-const Orders = ({ orders }) => {
+import OrderContext from '../../context/order/orderContext';
+
+const Orders = () => {
+  const orderContext = useContext(OrderContext);
+  const { orders, getOrders } = orderContext;
+
+  useEffect(() => {
+    getOrders();
+  }, []);
+
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -24,14 +33,14 @@ const Orders = ({ orders }) => {
         </TableHead>
         <TableBody>
           {orders.map(order => (
-            <TableRow key={order.id}>
-              <Link to={`/order/${order.id}`}>
+            <TableRow key={order._id}>
+              <Link to={`/order/${order._id}`}>
                 <TableCell
                   component='th'
                   scope='row'
                   style={{ color: 'blue', textDecoration: 'underline' }}
                 >
-                  {order.id}
+                  {order._id}
                 </TableCell>
               </Link>
               <TableCell>{order.date.toLocaleString()}</TableCell>
