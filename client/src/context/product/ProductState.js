@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import axios from 'axios';
 import ProductContext from './productContext';
 import productReducer from './productReducer';
 import { GET_PRODUCTS, GET_PRODUCT } from '../types';
@@ -90,15 +91,27 @@ const ProductState = props => {
   const [state, dispatch] = useReducer(productReducer, initialState);
 
   // Get Products
-  const getProducts = () => {
+  const getProducts = async () => {
     // GET request to product microservice
-    console.log('Get Products!');
+    try {
+      const res = await axios.get('/api/product/');
+      dispatch({ type: GET_PRODUCTS, payload: res.data });
+    } catch (err) {
+      console.log('product error');
+      // dispatch({ type: PRODUCT_ERROR });
+    }
   };
 
   // Get Product
-  const getProduct = id => {
+  const getProduct = async id => {
     // GET request to product microservice
-    console.log('Get Product!');
+    try {
+      const res = await axios.get(`/api/product/${id}`);
+      dispatch({ type: GET_PRODUCT, payload: res.data });
+    } catch (err) {
+      console.log('product error');
+      // dispatch({ type: PRODUCT_ERROR });
+    }
   };
 
   const getPublicSellerProducts = id => {
