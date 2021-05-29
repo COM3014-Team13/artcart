@@ -7,7 +7,8 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_ERRORS,
-  ADD_ADDRESS
+  ADD_ADDRESS,
+  GET_PUBLIC_SELLER
 } from '../types';
 
 const authReducer = (state, action) => {
@@ -43,6 +44,11 @@ const authReducer = (state, action) => {
           ...state.currentUser,
           addresses: [action.payload.address, ...state.currentUser.addresses]
         }
+      };
+    case GET_PUBLIC_SELLER:
+      return {
+        ...state,
+        publicSeller: action.payload
       };
     default:
       return state;

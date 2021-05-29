@@ -7,6 +7,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ADD_ADDRESS,
+  GET_PUBLIC_SELLER,
   USER_LOADED,
   AUTH_ERROR
 } from '../types';
@@ -151,8 +152,14 @@ const AuthState = props => {
     }
   };
 
-  const getPublicSeller = () => {
-    console.log('getPublicSeller');
+  const getPublicSeller = async id => {
+    try {
+      const res = await axios.get(`/api/user/${id}`);
+      dispatch({ type: GET_PUBLIC_SELLER, payload: res.data });
+    } catch (err) {
+      console.log('product error');
+      // dispatch({ type: PRODUCT_ERROR });
+    }
   };
 
   return (

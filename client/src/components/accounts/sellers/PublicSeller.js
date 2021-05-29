@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import AuthContext from '../../../context/auth/authContext';
 import ProductContext from '../../../context/product/productContext';
 import { Grid, List, Typography } from '@material-ui/core';
+import { Rating } from '@material-ui/lab';
 
 import RatingItem from './RatingItem';
 import ProductCard from '../../products/ProductCard';
@@ -9,21 +10,35 @@ import ProductCard from '../../products/ProductCard';
 const PublicSeller = props => {
   const authContext = useContext(AuthContext);
   const { publicSeller, getPublicSeller } = authContext;
-  const { name, email, ratings } = publicSeller;
+  const { user, ratings } = publicSeller;
 
   const productContext = useContext(ProductContext);
-  const { products, getPublicSellerProducts } = productContext;
+  const { products, getSellerProducts } = productContext;
 
   useEffect(() => {
     getPublicSeller(props.match.params.id);
-    getPublicSellerProducts(props.match.params.id);
+    getSellerProducts(props.match.params.id);
   }, []);
 
   return (
     <div>
       <br />
-      <Typography variant='h2'>{name} Page</Typography>
-      <Typography variant='h5'>&emsp;{email}</Typography>
+      <Typography variant='h2'>{user && user.name}'s Store</Typography>
+      <Typography variant='h5'>
+        &emsp;
+        {ratings && ratings.average_rating === 0 ? (
+          'No Ratings Yet'
+        ) : (
+          <Rating
+            name='read-only'
+            value={ratings && ratings.average_rating}
+            precision={0.5}
+            readOnly
+          />
+        )}
+        <br />
+        &emsp;{user && user.email}
+      </Typography>
       <br />
 
       <Grid container spacing={3}>
