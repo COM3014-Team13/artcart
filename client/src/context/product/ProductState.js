@@ -14,75 +14,11 @@ import {
 
 const ProductState = props => {
   const initialState = {
-    products: [
-      {
-        id: 1,
-        seller: {
-          id: 'abc123',
-          name: 'John Lennon',
-          rating: 4.8
-        },
-        title: 'Mona Lisa',
-        price: 11.99,
-        image_url: 'https://i.imgur.com/UbNWn71.jpg',
-        desc: {
-          date: new Date(1503, 0, 0),
-          artist: 'Leonardo da Vinci',
-          type: 'Oil Painting',
-          info: 'A classic piece by a legendary artist.'
-        },
-        seller_rating: 4.5
-      },
-      {
-        id: 2,
-        sid: 'def456',
-        title: 'The Starry Night',
-        price: 18.9,
-        image_url: 'https://i.imgur.com/dQghycI.jpg',
-        desc: {
-          date: new Date(1889, 5, 1),
-          artist: 'Vincent van Gogh',
-          type: 'Oil Painting',
-          info: 'A masterpiece by the Post-Impressionist genius.'
-        },
-        seller_rating: 4.8
-      }
-    ],
-    product: {
-      id: 2,
-      seller: {
-        id: 'def456',
-        name: 'Jim Smith',
-        rating: 3.5
-      },
-      title: 'The Starry Night',
-      price: 18.99,
-      image_url: 'https://i.imgur.com/dQghycI.jpg',
-      desc: {
-        date: new Date(1889, 5, 1),
-        artist: 'Vincent van Gogh',
-        type: 'Oil Painting',
-        info: 'A masterpiece by the Post-Impressionist genius.'
-      }
-    },
-    formProduct: {
-      id: 2,
-      seller: {
-        id: 'def456',
-        name: 'Jim Smith',
-        rating: 3.5
-      },
-      title: 'The Starry Night',
-      price: 18.99,
-      image_url: 'https://i.imgur.com/dQghycI.jpg',
-      desc: {
-        date: new Date(1889, 5, 1),
-        artist: 'Vincent van Gogh',
-        type: 'Oil Painting',
-        info: 'A masterpiece by the Post-Impressionist genius.'
-      }
-    },
-    formSuccess: false
+    products: [],
+    product: null,
+    formProduct: null,
+    formSuccess: false,
+    productLoading: true
   };
 
   const [state, dispatch] = useReducer(productReducer, initialState);
@@ -169,6 +105,7 @@ const ProductState = props => {
         product: state.product,
         formProduct: state.formProduct,
         formSuccess: state.formSuccess,
+        productLoading: state.productLoading,
         getProducts,
         getProduct,
         getSellerProducts,

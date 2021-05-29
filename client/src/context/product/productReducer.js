@@ -13,12 +13,14 @@ const productReducer = (state, action) => {
     case GET_PRODUCTS:
       return {
         ...state,
-        products: action.payload
+        products: action.payload,
+        productLoading: false
       };
     case GET_PRODUCT:
       return {
         ...state,
-        product: action.payload
+        product: action.payload,
+        productLoading: false
       };
     case ADD_PRODUCT:
       return {

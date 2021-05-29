@@ -6,7 +6,6 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS,
   ADD_ADDRESS,
   GET_PUBLIC_SELLER
 } from '../types';
@@ -17,7 +16,8 @@ const authReducer = (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        currentUser: action.payload
+        currentUser: action.payload,
+        authLoading: false
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
@@ -25,7 +25,8 @@ const authReducer = (state, action) => {
       return {
         ...state,
         currentUser: action.payload.user,
-        isAuthenticated: true
+        isAuthenticated: true,
+        authLoading: false
       };
     case REGISTER_FAIL:
     case LOGIN_FAIL:
@@ -35,7 +36,8 @@ const authReducer = (state, action) => {
       return {
         ...state,
         currentUser: null,
-        isAuthenticated: false
+        isAuthenticated: false,
+        authLoading: false
       };
     case ADD_ADDRESS:
       return {
@@ -48,7 +50,8 @@ const authReducer = (state, action) => {
     case GET_PUBLIC_SELLER:
       return {
         ...state,
-        publicSeller: action.payload
+        publicSeller: action.payload,
+        authLoading: false
       };
     default:
       return state;

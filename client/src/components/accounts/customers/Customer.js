@@ -119,9 +119,7 @@ const Customer = ({ currentUser }) => {
 };
 
 Customer.propTypes = {
-  user: PropTypes.object.isRequired,
-  customer: PropTypes.object.isRequired,
-  orders: PropTypes.array.isRequired
+  currentUser: PropTypes.object.isRequired
 };
 
 export default Customer;

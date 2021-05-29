@@ -17,73 +17,9 @@ import authReducer from './authReducer';
 const AuthState = props => {
   const initialState = {
     isAuthenticated: false,
+    authLoading: true,
     currentUser: null,
-    user: {
-      id: 1,
-      name: 'John Smith',
-      email: 'john@smith.com',
-      role: 'customer'
-    },
-    customer: {
-      id: 1,
-      uid: 1,
-      addresses: [
-        {
-          name: 'John Smith',
-          street: '10 Downing Street',
-          postcode: 'SW1A 2AA',
-          city: 'London',
-          country: 'UK',
-          phone: '+441234567890'
-        },
-        {
-          name: 'John Smith',
-          street: '10 Downing Street',
-          postcode: 'SW1A 2AA',
-          city: 'London',
-          country: 'UK',
-          phone: '+441234567890'
-        }
-      ]
-    },
-    seller: {
-      id: 1,
-      uid: 1,
-      products: ['1', '2'],
-      ratings: {
-        num_ratings: 2,
-        rating_list: [
-          {
-            rating: 4,
-            review: 'Good service fast delivery.'
-          },
-          {
-            rating: 3,
-            review: 'Beautiful art piece, shipping was slow.'
-          }
-        ]
-      }
-    },
-    publicSeller: {
-      id: 1,
-      uid: 1,
-      name: 'John Smith',
-      email: 'john@smith.com',
-      products: ['1', '2'],
-      ratings: {
-        num_ratings: 2,
-        rating_list: [
-          {
-            value: 4,
-            review: 'Good service fast delivery.'
-          },
-          {
-            value: 3,
-            review: 'Beautiful art piece, shipping was slow.'
-          }
-        ]
-      }
-    }
+    publicSeller: null
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
@@ -167,10 +103,7 @@ const AuthState = props => {
       value={{
         isAuthenticated: state.isAuthenticated,
         currentUser: state.currentUser,
-        user: state.user,
-        customer: state.customer,
-        orders: state.orders,
-        seller: state.seller,
+        authLoading: state.authLoading,
         publicSeller: state.publicSeller,
         loadUser,
         register,

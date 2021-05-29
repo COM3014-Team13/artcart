@@ -10,17 +10,19 @@ const orderReducer = (state, action) => {
     case GET_ORDERS:
       return {
         ...state,
-        orders: action.payload
+        orders: action.payload,
+        orderLoading: false
       };
     case GET_ORDER:
       return {
         ...state,
-        order: action.payload
+        order: action.payload,
+        orderLoading: false
       };
     case ADD_ORDER:
       return {
         ...state,
-        order: [...state.orders, action.payload],
+        orders: [...state.orders, action.payload],
         orderSuccess: true
       };
     case RESET_ORDER_SUCCESS:
