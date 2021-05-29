@@ -6,7 +6,9 @@ import {
   GET_PRODUCTS,
   GET_PRODUCT,
   ADD_PRODUCT,
-  RESET_FORM_SUCCESS
+  SET_FORM_PRODUCT,
+  RESET_FORM_SUCCESS,
+  UPDATE_PRODUCT
 } from '../types';
 
 const ProductState = props => {
@@ -124,6 +126,22 @@ const ProductState = props => {
     }
   };
 
+  const updateProduct = async (id, formData) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    try {
+      const res = await axios.put(`/api/products/${id}/edit`, formData, config);
+      dispatch({ type: UPDATE_PRODUCT, payload: res.data });
+    } catch (err) {
+      console.log('product error');
+      // dispatch({ type: PRODUCT_ERROR });
+    }
+  };
+
   const resetFormSuccess = () => dispatch({ type: RESET_FORM_SUCCESS });
 
   const getPublicSellerProducts = id => {
@@ -131,7 +149,7 @@ const ProductState = props => {
   };
 
   const setFormProduct = id => {
-    console.log('setFormProduct');
+    dispatch({ type: SET_FORM_PRODUCT, payload: id });
   };
   const clearFormProduct = () => {
     console.log('clearFormProduct');
@@ -150,6 +168,7 @@ const ProductState = props => {
         setFormProduct,
         clearFormProduct,
         addProduct,
+        updateProduct,
         resetFormSuccess
       }}
     >

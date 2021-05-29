@@ -25,7 +25,7 @@ router.post(
       price,
       image_url,
       seller: {
-        sid: req.currentUser!.user.uid,
+        sid: req.currentUser!._id,
         name: req.currentUser!.user.name,
         average_rating: req.currentUser!.ratings!.average_rating
       },

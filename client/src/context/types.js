@@ -9,4 +9,6 @@ export const ADD_ADDRESS = 'ADD_ADDRESS';
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const GET_PRODUCT = 'GET_PRODUCT';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
+export const SET_FORM_PRODUCT = 'SET_FORM_PRODUCT';
 export const RESET_FORM_SUCCESS = 'RESET_FORM_SUCCESS';

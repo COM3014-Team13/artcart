@@ -2,6 +2,8 @@ import {
   GET_PRODUCTS,
   GET_PRODUCT,
   ADD_PRODUCT,
+  UPDATE_PRODUCT,
+  SET_FORM_PRODUCT,
   RESET_FORM_SUCCESS
 } from '../types';
 
@@ -22,6 +24,21 @@ const productReducer = (state, action) => {
         ...state,
         products: [...state.products, action.payload],
         formSuccess: true
+      };
+    case UPDATE_PRODUCT:
+      return {
+        ...state,
+        products: state.products.map(product =>
+          product.id === action.payload.id ? action.payload : product
+        ),
+        formSuccess: true
+      };
+    case SET_FORM_PRODUCT:
+      return {
+        ...state,
+        formProduct: state.products.find(
+          product => product.id === action.payload
+        )
       };
     case RESET_FORM_SUCCESS:
       return {

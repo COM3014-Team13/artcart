@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ProductContext from '../../../context/product/productContext';
 import {
   Box,
@@ -12,8 +12,8 @@ import {
 
 const EditProductForm = ({ closeEditProduct }) => {
   const productContext = useContext(ProductContext);
-  const { formProduct } = productContext;
-
+  const { formProduct, formSuccess, updateProduct, resetFormSuccess } =
+    productContext;
   const [product, setProduct] = useState({
     title: formProduct.title,
     image_url: formProduct.image_url,
@@ -21,10 +21,17 @@ const EditProductForm = ({ closeEditProduct }) => {
     type: formProduct.desc.type,
     info: formProduct.desc.info,
     date: formProduct.desc.date,
-    price: formProduct.price.value
+    price: formProduct.price
   });
 
   const { title, image_url, artist, type, info, date, price } = product;
+
+  useEffect(() => {
+    if (formSuccess) {
+      resetFormSuccess();
+      closeEditProduct();
+    }
+  }, [formSuccess]);
 
   const onChange = e => {
     setProduct({ ...product, [e.target.name]: e.target.value });
@@ -32,8 +39,18 @@ const EditProductForm = ({ closeEditProduct }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    closeEditProduct();
-    console.log(product);
+    const formData = {
+      title,
+      price,
+      image_url,
+      desc: {
+        date,
+        artist,
+        type,
+        info
+      }
+    };
+    updateProduct(formProduct.id, formData);
   };
   return (
     <Box className='form-box' margin='auto' marginTop='10%'>
