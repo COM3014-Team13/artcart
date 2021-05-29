@@ -16,7 +16,7 @@ module.exports = function (app) {
     })
   );
   app.use(
-    '/api/product',
+    '/api/products',
     createProxyMiddleware({
       target: 'http://localhost:31130',
       changeOrigin: true

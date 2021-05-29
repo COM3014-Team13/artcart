@@ -6,7 +6,7 @@ import { Product } from '../models/product';
 const router = express.Router();
 
 router.post(
-  '/api/account/newproduct',
+  '/api/products/new',
   requireAuth,
   [
     body('title').not().isEmpty().withMessage('Title is required'),

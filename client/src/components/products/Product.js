@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProductContext from '../../context/product/productContext';
 import {
@@ -15,7 +15,12 @@ import ShoppingCart from '@material-ui/icons/ShoppingCart';
 
 const Product = props => {
   const productContext = useContext(ProductContext);
-  const { title, price, image_url, desc, seller } = productContext.product;
+  const { product, getProduct } = productContext;
+  const { title, price, image_url, desc, seller } = product;
+
+  useEffect(() => {
+    getProduct(props.match.params.id);
+  }, []);
 
   const date = desc.date.toLocaleString('default', {
     month: 'long',
@@ -46,7 +51,7 @@ const Product = props => {
                   fontSize='small'
                   style={{ verticalAlign: '-3.5px' }}
                 />
-                <Link to={`/account/${seller.id}`}>{seller.name}</Link>
+                <Link to={`/account/${seller.sid}`}>{seller.name}</Link>
                 <br />
                 <Rating
                   name='read-only'
@@ -55,7 +60,7 @@ const Product = props => {
                   readOnly
                 />
               </Typography>
-              <Typography variant='subtitle1'>£{price.value}</Typography>
+              <Typography variant='subtitle1'>£{price}</Typography>
               <br />
               <Typography variant='subtitle2'>
                 {desc.info}

@@ -1,11 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ProductCard from '../products/ProductCard';
 import ProductContext from '../../context/product/productContext';
 import { Grid } from '@material-ui/core';
 
 const Products = () => {
   const productContext = useContext(ProductContext);
-  const { products } = productContext;
+  const { products, getProducts } = productContext;
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <Grid container spacing={3}>
       {products.map(product => (

@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
               {desc.artist}
             </Typography>
             <Typography variant='body2' color='textSecondary' component='p'>
-              £{price.value}
+              £{price}
               <br />
               {desc.info}
             </Typography>

@@ -58,7 +58,7 @@ const Checkout = props => {
               size='large'
               startIcon={<PaymentIcon />}
             >
-              Buy Now (£{price.value})
+              Buy Now (£{price})
             </Button>
           </CardContent>
         </Card>

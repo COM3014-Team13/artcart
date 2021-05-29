@@ -15,10 +15,7 @@ const ProductState = props => {
           rating: 4.8
         },
         title: 'Mona Lisa',
-        price: {
-          value: 11.99,
-          discount: 0.25
-        },
+        price: 11.99,
         image_url: 'https://i.imgur.com/UbNWn71.jpg',
         desc: {
           date: new Date(1503, 0, 0),
@@ -32,10 +29,7 @@ const ProductState = props => {
         id: 2,
         sid: 'def456',
         title: 'The Starry Night',
-        price: {
-          value: 18.99,
-          discount: 0.35
-        },
+        price: 18.9,
         image_url: 'https://i.imgur.com/dQghycI.jpg',
         desc: {
           date: new Date(1889, 5, 1),
@@ -54,10 +48,7 @@ const ProductState = props => {
         rating: 3.5
       },
       title: 'The Starry Night',
-      price: {
-        value: 18.99,
-        discount: 0.35
-      },
+      price: 18.99,
       image_url: 'https://i.imgur.com/dQghycI.jpg',
       desc: {
         date: new Date(1889, 5, 1),
@@ -74,10 +65,7 @@ const ProductState = props => {
         rating: 3.5
       },
       title: 'The Starry Night',
-      price: {
-        value: 18.99,
-        discount: 0.35
-      },
+      price: 18.99,
       image_url: 'https://i.imgur.com/dQghycI.jpg',
       desc: {
         date: new Date(1889, 5, 1),
@@ -94,7 +82,7 @@ const ProductState = props => {
   const getProducts = async () => {
     // GET request to product microservice
     try {
-      const res = await axios.get('/api/product/');
+      const res = await axios.get('/api/products/');
       dispatch({ type: GET_PRODUCTS, payload: res.data });
     } catch (err) {
       console.log('product error');
@@ -106,7 +94,7 @@ const ProductState = props => {
   const getProduct = async id => {
     // GET request to product microservice
     try {
-      const res = await axios.get(`/api/product/${id}`);
+      const res = await axios.get(`/api/products/${id}`);
       dispatch({ type: GET_PRODUCT, payload: res.data });
     } catch (err) {
       console.log('product error');
