@@ -2,7 +2,12 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import ProductContext from './productContext';
 import productReducer from './productReducer';
-import { GET_PRODUCTS, GET_PRODUCT } from '../types';
+import {
+  GET_PRODUCTS,
+  GET_PRODUCT,
+  ADD_PRODUCT,
+  RESET_FORM_SUCCESS
+} from '../types';
 
 const ProductState = props => {
   const initialState = {
@@ -73,7 +78,8 @@ const ProductState = props => {
         type: 'Oil Painting',
         info: 'A masterpiece by the Post-Impressionist genius.'
       }
-    }
+    },
+    formSuccess: false
   };
 
   const [state, dispatch] = useReducer(productReducer, initialState);
@@ -102,6 +108,24 @@ const ProductState = props => {
     }
   };
 
+  const addProduct = async formData => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    try {
+      const res = await axios.post('/api/products/new', formData, config);
+      dispatch({ type: ADD_PRODUCT, payload: res.data });
+    } catch (err) {
+      console.log('product error');
+      // dispatch({ type: PRODUCT_ERROR });
+    }
+  };
+
+  const resetFormSuccess = () => dispatch({ type: RESET_FORM_SUCCESS });
+
   const getPublicSellerProducts = id => {
     console.log('getPublicSellerProducts');
   };
@@ -119,11 +143,14 @@ const ProductState = props => {
         products: state.products,
         product: state.product,
         formProduct: state.formProduct,
+        formSuccess: state.formSuccess,
         getProducts,
         getProduct,
         getPublicSellerProducts,
         setFormProduct,
-        clearFormProduct
+        clearFormProduct,
+        addProduct,
+        resetFormSuccess
       }}
     >
       {props.children}

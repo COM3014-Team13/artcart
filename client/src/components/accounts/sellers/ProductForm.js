@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import ProductContext from '../../../context/product/productContext';
 import {
   Box,
   Button,
@@ -10,6 +11,8 @@ import {
 } from '@material-ui/core';
 
 const ProductForm = ({ closeProduct }) => {
+  const productContext = useContext(ProductContext);
+  const { formSuccess, addProduct, resetFormSuccess } = productContext;
   const [product, setProduct] = useState({
     title: '',
     image_url: '',
@@ -22,14 +25,31 @@ const ProductForm = ({ closeProduct }) => {
 
   const { title, image_url, artist, type, info, date, price } = product;
 
+  useEffect(() => {
+    if (formSuccess) {
+      resetFormSuccess();
+      closeProduct();
+    }
+  }, [formSuccess]);
+
   const onChange = e => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
   const onSubmit = e => {
     e.preventDefault();
-    closeProduct();
-    console.log(product);
+    const formData = {
+      title,
+      price,
+      image_url,
+      desc: {
+        date,
+        artist,
+        type,
+        info
+      }
+    };
+    addProduct(formData);
   };
 
   return (
