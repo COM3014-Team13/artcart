@@ -4,6 +4,7 @@ import {
   ADD_PRODUCT,
   UPDATE_PRODUCT,
   SET_FORM_PRODUCT,
+  CLEAR_FORM_PRODUCT,
   RESET_FORM_SUCCESS
 } from '../types';
 
@@ -39,6 +40,11 @@ const productReducer = (state, action) => {
         formProduct: state.products.find(
           product => product.id === action.payload
         )
+      };
+    case CLEAR_FORM_PRODUCT:
+      return {
+        ...state,
+        formProduct: {}
       };
     case RESET_FORM_SUCCESS:
       return {

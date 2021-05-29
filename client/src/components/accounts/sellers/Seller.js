@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ProductContext from '../../../context/product/productContext';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -25,12 +25,13 @@ const Seller = props => {
   const { currentUser, orders } = props;
   const { user, ratings } = currentUser;
   const productContext = useContext(ProductContext);
-  const {
-    products,
-    getPublicSellerProducts,
-    setFormProduct,
-    clearFormProduct
-  } = productContext;
+  const { products, getSellerProducts, setFormProduct, clearFormProduct } =
+    productContext;
+
+  useEffect(() => {
+    getSellerProducts(currentUser._id);
+  }, []);
+
   const [value, setValue] = useState('1');
   const [modal, setModal] = useState({
     password: false,

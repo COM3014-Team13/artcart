@@ -6,9 +6,10 @@ import {
   GET_PRODUCTS,
   GET_PRODUCT,
   ADD_PRODUCT,
+  UPDATE_PRODUCT,
   SET_FORM_PRODUCT,
-  RESET_FORM_SUCCESS,
-  UPDATE_PRODUCT
+  CLEAR_FORM_PRODUCT,
+  RESET_FORM_SUCCESS
 } from '../types';
 
 const ProductState = props => {
@@ -144,15 +145,21 @@ const ProductState = props => {
 
   const resetFormSuccess = () => dispatch({ type: RESET_FORM_SUCCESS });
 
-  const getPublicSellerProducts = id => {
-    console.log('getPublicSellerProducts');
+  const getSellerProducts = async id => {
+    try {
+      const res = await axios.get(`/api/products/account/${id}`);
+      dispatch({ type: GET_PRODUCTS, payload: res.data });
+    } catch (err) {
+      console.log('product error');
+      // dispatch({ type: PRODUCT_ERROR });
+    }
   };
 
   const setFormProduct = id => {
     dispatch({ type: SET_FORM_PRODUCT, payload: id });
   };
   const clearFormProduct = () => {
-    console.log('clearFormProduct');
+    dispatch({ type: CLEAR_FORM_PRODUCT });
   };
 
   return (
@@ -164,7 +171,7 @@ const ProductState = props => {
         formSuccess: state.formSuccess,
         getProducts,
         getProduct,
-        getPublicSellerProducts,
+        getSellerProducts,
         setFormProduct,
         clearFormProduct,
         addProduct,
