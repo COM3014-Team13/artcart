@@ -9,6 +9,8 @@ import { showAllProductsRouter } from './routes/showallproducts';
 import { editProductRouter } from './routes/editproduct';
 import { showUserProductsRouter } from './routes/showuserproduct';
 import { createOrderRouter } from './routes/orders/new-order';
+import { showOrdersRouter } from './routes/orders/show-orders';
+import { showOrderRouter } from './routes/orders/show-order';
 
 import { errorHandler, NotFoundError, currentUser } from '@com3014/common';
 
@@ -32,6 +34,8 @@ app.use(showUserProductsRouter);
 
 // Orders
 app.use(createOrderRouter);
+app.use(showOrdersRouter);
+app.use(showOrderRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();
