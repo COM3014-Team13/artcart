@@ -12,6 +12,7 @@ import { errorHandler } from '@com3014/common';
 import { NotFoundError } from '@com3014/common';
 import { addAddressRouter } from './routes/add-address';
 import { sellerInfoRouter } from './routes/seller-info';
+import { addRatingRouter } from './routes/add-rating';
 
 const app = express();
 app.set('trust proxy', true);
@@ -29,6 +30,7 @@ app.use(logoutRouter);
 app.use(registerRouter);
 app.use(addAddressRouter);
 app.use(sellerInfoRouter);
+app.use(addRatingRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();
