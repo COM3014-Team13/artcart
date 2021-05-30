@@ -11,7 +11,7 @@ import {
   Tab,
   Typography
 } from '@material-ui/core';
-import { TabContext, TabList, TabPanel } from '@material-ui/lab';
+import { Rating, TabContext, TabList, TabPanel } from '@material-ui/lab';
 import PasswordForm from '../shared/PasswordForm';
 import ProductForm from './ProductForm';
 import EditProductForm from './EditProductForm';
@@ -105,6 +105,17 @@ const Seller = props => {
             <Grid item xs={10}>
               <Typography variant='h4'>{user.name}</Typography>
               <Typography variant='h5' style={{ paddingLeft: '1em' }}>
+                {ratings.average_rating === 0 ? (
+                  'No Ratings Yet'
+                ) : (
+                  <Rating
+                    name='read-only'
+                    value={ratings && ratings.average_rating}
+                    precision={0.5}
+                    readOnly
+                  />
+                )}
+                <br />
                 {user.email}
               </Typography>
               <br />

@@ -1,9 +1,12 @@
 import React, { useReducer } from 'react';
+import axios from 'axios';
 import {
   GET_ORDERS,
   GET_ORDER,
   ADD_ORDER,
-  RESET_ORDER_SUCCESS
+  RATE_ORDER,
+  RESET_ORDER_SUCCESS,
+  RESET_RATING_SUCCESS
 } from '../types';
 import OrderContext from './orderContext';
 import orderReducer from './orderReducer';
@@ -13,6 +16,7 @@ const OrderState = props => {
     orders: [],
     order: null,
     orderSuccess: false,
+    ratingSuccess: false,
     orderLoading: true
   };
 
@@ -56,7 +60,40 @@ const OrderState = props => {
     }
   };
 
+  const addOrderRating = async (id, formData) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    try {
+      const res = await axios.post(`/api/orders/${id}/rate`, formData, config);
+      dispatch({ type: RATE_ORDER, payload: res.data });
+    } catch (err) {
+      console.log('order error');
+      // dispatch({ type: PRODUCT_ERROR });
+    }
+  };
+
+  const addSellerRating = async formData => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    try {
+      const res = await axios.post('/api/user/rating', formData, config);
+      console.log(res.data);
+    } catch (err) {
+      console.log('order error');
+      // dispatch({ type: PRODUCT_ERROR });
+    }
+  };
+
   const resetOrderSuccess = () => dispatch({ type: RESET_ORDER_SUCCESS });
+  const resetRatingSuccess = () => dispatch({ type: RESET_RATING_SUCCESS });
 
   const [state, dispatch] = useReducer(orderReducer, initialState);
   return (
@@ -65,11 +102,15 @@ const OrderState = props => {
         orders: state.orders,
         order: state.order,
         orderSuccess: state.orderSuccess,
+        ratingSuccess: state.ratingSuccess,
         orderLoading: state.orderLoading,
         getOrders,
         getOrder,
         addOrder,
-        resetOrderSuccess
+        addOrderRating,
+        addSellerRating,
+        resetOrderSuccess,
+        resetRatingSuccess
       }}
     >
       {props.children}

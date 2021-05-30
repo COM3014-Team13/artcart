@@ -46,7 +46,7 @@ const Order = props => {
             aria-labelledby='simple-modal-title'
             aria-describedby='simple-modal-description'
           >
-            <NewRating closeModal={closeModal} />
+            <NewRating closeModal={closeModal} order={order} />
           </Modal>
           <Typography variant='h2'>Order #{order._id}</Typography>
           <Card>
@@ -78,7 +78,11 @@ const Order = props => {
                     </CardContent>
                   </Card>
                   <br />
-                  {currentUser.user.role === 'customer' && !order.rated && (
+                  {order.rated ? (
+                    <div>Rated {order.rating.value}</div>
+                  ) : currentUser.user.role !== 'customer' ? (
+                    <div>Not yet rated.</div>
+                  ) : (
                     <Button
                       variant='contained'
                       color='primary'

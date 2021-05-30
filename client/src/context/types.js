@@ -17,4 +17,6 @@ export const RESET_FORM_SUCCESS = 'RESET_FORM_SUCCESS';
 export const GET_ORDERS = 'GET_ORDERS';
 export const GET_ORDER = 'GET_ORDER';
 export const ADD_ORDER = 'ADD_ORDER';
+export const RATE_ORDER = 'RATE_ORDER';
 export const RESET_ORDER_SUCCESS = 'RESET_ORDER_SUCCESS';
+export const RESET_RATING_SUCCESS = 'RESET_RATING_SUCCESS';

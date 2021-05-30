@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import OrderContext from '../../context/order/orderContext';
 import {
   Box,
   Button,
@@ -9,11 +10,21 @@ import {
 } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 
-const NewRating = ({ closeModal }) => {
+const NewRating = ({ closeModal, order }) => {
+  const orderContext = useContext(OrderContext);
+  const { ratingSuccess, addOrderRating, addSellerRating, resetRatingSuccess } =
+    orderContext;
   const [rating, setRating] = useState({
     value: 0,
     review: ''
   });
+
+  useEffect(() => {
+    if (ratingSuccess) {
+      resetRatingSuccess();
+      closeModal();
+    }
+  }, [ratingSuccess]);
 
   const { value, review } = rating;
 
@@ -24,8 +35,8 @@ const NewRating = ({ closeModal }) => {
   const onSubmit = e => {
     e.preventDefault();
     if (value > 0) {
-      closeModal();
-      console.log(rating);
+      addSellerRating({ sid: order.sid, value, review });
+      addOrderRating(order._id, rating);
     } else {
       console.log('Rate above 0!');
     }

@@ -2,7 +2,9 @@ import {
   GET_ORDERS,
   GET_ORDER,
   ADD_ORDER,
-  RESET_ORDER_SUCCESS
+  RATE_ORDER,
+  RESET_ORDER_SUCCESS,
+  RESET_RATING_SUCCESS
 } from '../types';
 
 const orderReducer = (state, action) => {
@@ -25,10 +27,21 @@ const orderReducer = (state, action) => {
         orders: [...state.orders, action.payload],
         orderSuccess: true
       };
+    case RATE_ORDER:
+      return {
+        ...state,
+        order: action.payload,
+        ratingSuccess: true
+      };
     case RESET_ORDER_SUCCESS:
       return {
         ...state,
         orderSuccess: false
+      };
+    case RESET_RATING_SUCCESS:
+      return {
+        ...state,
+        ratingSuccess: false
       };
     default:
       return state;
