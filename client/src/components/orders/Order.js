@@ -10,6 +10,8 @@ import {
   Modal,
   Typography
 } from '@material-ui/core';
+import { Rating } from '@material-ui/lab';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import AddressCard from '../accounts/customers/AddressCard';
 import NewRating from './NewRating';
@@ -79,7 +81,27 @@ const Order = props => {
                   </Card>
                   <br />
                   {order.rated ? (
-                    <div>Rated {order.rating.value}</div>
+                    <Fragment>
+                      <Typography variant='h6'>Rating</Typography>
+                      <Card>
+                        <CardContent>
+                          <Typography>
+                            <AccountCircleIcon
+                              fontSize='small'
+                              style={{ verticalAlign: '-3.5px' }}
+                            />{' '}
+                            {order.shipping.address.name}
+                          </Typography>
+                          <Rating
+                            name='read-only'
+                            value={order.rating.value}
+                            precision={0.5}
+                            readOnly
+                          />
+                          <Typography>{order.rating.review}</Typography>
+                        </CardContent>
+                      </Card>
+                    </Fragment>
                   ) : currentUser.user.role !== 'customer' ? (
                     <div>Not yet rated.</div>
                   ) : (
@@ -100,6 +122,8 @@ const Order = props => {
             </CardContent>
           </Card>
         </Fragment>
+      ) : currentUser === null && !authLoading ? (
+        props.history.push('/')
       ) : (
         <div>Loading...</div>
       )}

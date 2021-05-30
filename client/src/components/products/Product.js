@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProductContext from '../../context/product/productContext';
+import AuthContext from '../../context/auth/authContext';
 import {
   Box,
   Button,
@@ -16,15 +17,24 @@ import ShoppingCart from '@material-ui/icons/ShoppingCart';
 const Product = props => {
   const productContext = useContext(ProductContext);
   const { product, productLoading, getProduct } = productContext;
+  const authContext = useContext(AuthContext);
+  const { publicSeller, getPublicSeller } = authContext;
 
   useEffect(() => {
     getProduct(props.match.params.id);
   }, []);
 
+  useEffect(() => {
+    if (product !== null) {
+      getPublicSeller(product.seller.sid);
+    }
+  }, [product]);
+
   return (
     <Fragment>
       {product !== null && !productLoading ? (
         <Box paddingTop='2%'>
+          {}
           <Grid container spacing={3}>
             <Grid item xs={12} lg={8}>
               <Card>
@@ -51,12 +61,16 @@ const Product = props => {
                       {product.seller.name}
                     </Link>
                     <br />
-                    <Rating
-                      name='read-only'
-                      value={product.seller.rating}
-                      precision={0.5}
-                      readOnly
-                    />
+                    {publicSeller !== null ? (
+                      <Rating
+                        name='read-only'
+                        value={publicSeller.ratings.average_rating}
+                        precision={0.5}
+                        readOnly
+                      />
+                    ) : (
+                      <div>Ratings Loading....</div>
+                    )}
                   </Typography>
                   <Typography variant='subtitle1'>£{product.price}</Typography>
                   <br />
