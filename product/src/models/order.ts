@@ -10,12 +10,14 @@ type Address = {
   phone: string;
 };
 type Shipping = { address: Address };
+type Rating = { value: number; review?: string };
 
 interface OrderAttrs {
   cid: string;
   sid: string;
   product: Product;
   shipping: Shipping;
+  rating: Rating;
   rated: boolean;
   date: Date;
 }
@@ -25,6 +27,7 @@ interface OrderDoc extends mongoose.Document {
   sid: string;
   product: Product;
   shipping: Shipping;
+  rating: Rating;
   rated: boolean;
   date: Date;
 }
@@ -86,6 +89,15 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true
       }
+    }
+  },
+  rating: {
+    value: {
+      type: Number,
+      default: 0
+    },
+    review: {
+      type: String
     }
   },
   rated: {

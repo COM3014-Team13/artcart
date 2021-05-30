@@ -7,7 +7,7 @@ import { Order } from '../../models/order';
 const router = express.Router();
 
 router.post(
-  '/api/orders/new',
+  '/api/orders/:id/rate',
   requireAuth,
   // [
   //   body('title').not().isEmpty().withMessage('Title is required'),
@@ -20,32 +20,22 @@ router.post(
       return res.status(403);
     }
 
-    const { pid, address } = req.body;
+    const { value, review } = req.body;
 
-    const product = await Product.findById(pid);
+    const order = await Order.findById(req.params.id);
 
-    const order = Order.build({
-      cid: req.currentUser!._id,
-      sid: product!.seller.sid,
-      product: {
-        pid: product!.id,
-        title: product!.title,
-        price: product!.price,
-        image_url: product!.image_url
-      },
-      shipping: {
-        address: address
-      },
-      rating: {
-        value: 0
-      },
-      rated: false,
-      date: new Date()
-    });
+    if (order === null) {
+      return res.status(400);
+    }
+
+    order.rating.value = value;
+    order.rating.review = review;
+    order.rated = true;
+
     await order.save();
 
     res.status(201).send(order);
   }
 );
 
-export { router as createOrderRouter };
+export { router as rateOrderRouter };
