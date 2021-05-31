@@ -27,6 +27,7 @@ const Navbar = () => {
 
   useEffect(() => {
     loadUser();
+    //eslint-disable-next-line
   }, []);
 
   const desktop = useMediaQuery({

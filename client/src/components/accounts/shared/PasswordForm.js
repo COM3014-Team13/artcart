@@ -24,7 +24,6 @@ const PasswordForm = ({ closePassword }) => {
   const onSubmit = e => {
     e.preventDefault();
     closePassword();
-    console.log(passwords);
   };
 
   return (

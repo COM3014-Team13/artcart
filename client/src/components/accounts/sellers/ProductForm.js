@@ -30,6 +30,7 @@ const ProductForm = ({ closeProduct }) => {
       resetFormSuccess();
       closeProduct();
     }
+    //eslint-disable-next-line
   }, [formSuccess]);
 
   const onChange = e => {

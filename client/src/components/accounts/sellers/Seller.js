@@ -30,6 +30,7 @@ const Seller = props => {
 
   useEffect(() => {
     getSellerProducts(currentUser._id);
+    //eslint-disable-next-line
   }, []);
 
   const [value, setValue] = useState('1');

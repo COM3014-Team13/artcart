@@ -23,7 +23,7 @@ const Checkout = props => {
   const { product, productLoading, getProduct } = productContext;
 
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, authLoading, currentUser } = authContext;
+  const { authLoading, currentUser } = authContext;
 
   const orderContext = useContext(OrderContext);
   const { orderSuccess, addOrder, resetOrderSuccess } = orderContext;
@@ -34,21 +34,17 @@ const Checkout = props => {
     setAddress(e.target.value);
   };
 
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     props.history.push('/register');
-  //   }
-  // }, [isAuthenticated, props.history]);
-
   useEffect(() => {
     if (orderSuccess) {
       resetOrderSuccess();
       props.history.push('/');
     }
+    //eslint-disable-next-line
   }, [orderSuccess, props.history]);
 
   useEffect(() => {
     getProduct(props.match.params.id);
+    //eslint-disable-next-line
   }, []);
 
   const onClick = e => {

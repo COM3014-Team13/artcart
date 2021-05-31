@@ -22,12 +22,14 @@ const Product = props => {
 
   useEffect(() => {
     getProduct(props.match.params.id);
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     if (product !== null) {
       getPublicSeller(product.seller.sid);
     }
+    //eslint-disable-next-line
   }, [product]);
 
   return (

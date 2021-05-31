@@ -24,6 +24,7 @@ const NewRating = ({ closeModal, order }) => {
       resetRatingSuccess();
       closeModal();
     }
+    //eslint-disable-next-line
   }, [ratingSuccess]);
 
   const { value, review } = rating;

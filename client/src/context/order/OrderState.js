@@ -84,8 +84,7 @@ const OrderState = props => {
     };
 
     try {
-      const res = await axios.post('/api/user/rating', formData, config);
-      console.log(res.data);
+      await axios.post('/api/user/rating', formData, config);
     } catch (err) {
       console.log('order error');
       // dispatch({ type: PRODUCT_ERROR });
