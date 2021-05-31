@@ -64,7 +64,7 @@ const Order = props => {
                   <Card>
                     <CardContent>
                       <Grid container spacing={1}>
-                        <Grid item md={6} center>
+                        <Grid item xs={6}>
                           <Box display='flex' justifyContent='center'>
                             <img
                               src={order.product.image_url}
@@ -73,7 +73,7 @@ const Order = props => {
                             />
                           </Box>
                         </Grid>
-                        <Grid item xs='6'>
+                        <Grid item xs={6}>
                           <Typography>{order.product.title}</Typography>
                           <Typography>£{order.product.price}</Typography>
                         </Grid>

@@ -36,7 +36,6 @@ const Product = props => {
     <Fragment>
       {product !== null && !productLoading ? (
         <Box paddingTop='2%'>
-          {}
           <Grid container spacing={3}>
             <Grid item xs={12} lg={8}>
               <Card>
@@ -71,7 +70,7 @@ const Product = props => {
                         readOnly
                       />
                     ) : (
-                      <div>Ratings Loading....</div>
+                      `Ratings Loading....`
                     )}
                   </Typography>
                   <Typography variant='subtitle1'>£{product.price}</Typography>
@@ -98,19 +97,27 @@ const Product = props => {
                 <Card>
                   <CardContent>
                     <Typography variant='h5'>Product Details</Typography>
-                    <Typography variant='body1'>
-                      <ul>
-                        <li>Artist: {product.desc.artist}</li>
-                        <li>
+                    <ul>
+                      <li>
+                        <Typography variant='body1'>
+                          Artist: {product.desc.artist}
+                        </Typography>
+                      </li>
+                      <li>
+                        <Typography variant='body1'>
                           Date:
                           {product.desc.date.toLocaleString('default', {
                             month: 'long',
                             year: 'numeric'
                           })}
-                        </li>
-                        <li>Type: {product.desc.type}</li>
-                      </ul>
-                    </Typography>
+                        </Typography>
+                      </li>
+                      <li>
+                        <Typography variant='body1'>
+                          Type: {product.desc.type}
+                        </Typography>
+                      </li>
+                    </ul>
                   </CardContent>
                 </Card>
               </Box>

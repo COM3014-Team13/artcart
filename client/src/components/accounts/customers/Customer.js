@@ -70,7 +70,7 @@ const Customer = ({ currentUser }) => {
         </AppBar>
         <TabPanel value='1'>
           <Grid container spacing={3}>
-            <Grid item xs={2} alignItems='right'>
+            <Grid item xs={2}>
               <AccountCircleIcon style={{ height: '5em', width: '100%' }} />
             </Grid>
             <Grid item xs={10}>
@@ -104,7 +104,7 @@ const Customer = ({ currentUser }) => {
           <br />
           <Grid container spacing={3}>
             {addresses.map(address => (
-              <Grid item xs={12} md={6} lg={4}>
+              <Grid item xs={12} md={6} lg={4} key={address.street}>
                 <AddressCard address={address} />
               </Grid>
             ))}

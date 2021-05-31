@@ -7,23 +7,17 @@ import {
   AppBar,
   Box,
   Button,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
   Menu,
   MenuItem,
   Toolbar,
   Typography
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Navbar = () => {
   const authContext = useContext(AuthContext);
   const { isAuthenticated, currentUser, loadUser, logout } = authContext;
-  const [open, setOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     loadUser();
@@ -59,17 +53,6 @@ const Navbar = () => {
   }));
 
   const classes = useStyles();
-
-  const toggleDrawer = open => event => {
-    if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
-
-    setOpen(open);
-  };
 
   const desktopLinks = (
     <Fragment>

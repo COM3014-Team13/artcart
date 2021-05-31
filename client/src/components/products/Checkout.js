@@ -106,7 +106,7 @@ const Checkout = props => {
                         onChange={onChange}
                       >
                         {currentUser.addresses.map(address => (
-                          <MenuItem value={address}>
+                          <MenuItem key={address.street} value={address}>
                             {address.name}, {address.street}, {address.city},{' '}
                             {address.postcode}
                           </MenuItem>

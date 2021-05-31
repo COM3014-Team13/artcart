@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ProductContext from '../../../context/product/productContext';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   AppBar,
@@ -100,7 +99,7 @@ const Seller = props => {
         </AppBar>
         <TabPanel value='1'>
           <Grid container spacing={3}>
-            <Grid item xs={2} alignItems='right'>
+            <Grid item xs={2}>
               <AccountCircleIcon style={{ height: '5em', width: '100%' }} />
             </Grid>
             <Grid item xs={10}>
@@ -164,17 +163,15 @@ const Seller = props => {
           <Grid container spacing={3}>
             {products.map(product => (
               <Grid item xs={12} md={6} lg={4} key={product.id}>
-                <Link>
-                  <Button
-                    variant='contained'
-                    onClick={() => {
-                      setFormProduct(product.id);
-                      setModal({ ...modal, edit: true });
-                    }}
-                  >
-                    Edit Product
-                  </Button>
-                </Link>
+                <Button
+                  variant='contained'
+                  onClick={() => {
+                    setFormProduct(product.id);
+                    setModal({ ...modal, edit: true });
+                  }}
+                >
+                  Edit Product
+                </Button>
                 <ProductCard product={product} />
               </Grid>
             ))}
@@ -189,7 +186,7 @@ const Seller = props => {
 };
 
 Seller.propTypes = {
-  seller: PropTypes.object.isRequired
+  currentUser: PropTypes.object.isRequired
 };
 
 export default Seller;
