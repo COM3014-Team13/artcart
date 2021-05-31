@@ -34,4 +34,5 @@ spec:
     - name: products-microservice
       protocol: TCP
       port: 3000
+      nodePort: 31130
       targetPort: 3000

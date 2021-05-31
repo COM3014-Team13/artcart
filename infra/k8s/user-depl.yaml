@@ -34,4 +34,5 @@ spec:
     - name: user
       protocol: TCP
       port: 3000
+      nodePort: 30649
       targetPort: 3000

@@ -131,21 +131,36 @@ const Navbar = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
-          <Link to='/account' className={classes.link}>
-            Account
-          </Link>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Link to='/register' className={classes.link}>
-            Register
-          </Link>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Link to='/login' className={classes.link}>
-            Login
-          </Link>
-        </MenuItem>
+        {isAuthenticated ? (
+          <Fragment>
+            <MenuItem onClick={handleClose}>
+              <Link to='/account' className={classes.link}>
+                Account
+              </Link>
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                logout();
+              }}
+            >
+              Logout
+            </MenuItem>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <MenuItem onClick={handleClose}>
+              <Link to='/register' className={classes.link}>
+                Register
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link to='/login' className={classes.link}>
+                Login
+              </Link>
+            </MenuItem>
+          </Fragment>
+        )}
       </Menu>
     </Fragment>
   );
@@ -154,21 +169,6 @@ const Navbar = () => {
     <div className={classes.root}>
       <AppBar position='sticky'>
         <Toolbar>
-          <Fragment>
-            <Button onClick={toggleDrawer(true)} className={classes.navButton}>
-              <Typography variant='h5'>
-                <MenuIcon className={classes.navIcon} /> {desktop && 'Browse'}
-              </Typography>
-            </Button>
-            <Drawer anchor='left' open={open} onClose={toggleDrawer(false)}>
-              <List>
-                <ListItem>
-                  <ListItemText primary='Hello' />
-                </ListItem>
-              </List>
-            </Drawer>
-          </Fragment>
-
           <Box className={classes.spacer}></Box>
 
           <Box position='absolute' left='50%'>

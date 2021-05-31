@@ -69,7 +69,7 @@ const Order = props => {
                             <img
                               src={order.product.image_url}
                               width='125px'
-                              alt=''
+                              alt={order.product.title}
                             />
                           </Box>
                         </Grid>

@@ -33,6 +33,9 @@ const PasswordForm = ({ closePassword }) => {
           <Typography variant='h4' align='center'>
             Change Password
           </Typography>
+          <Typography variant='h2' align='center'>
+            PASSWORD CHANGING NOT IMPLEMENTED
+          </Typography>
           <br />
           <form onSubmit={onSubmit} style={{ textAlign: 'center' }}>
             <TextField
