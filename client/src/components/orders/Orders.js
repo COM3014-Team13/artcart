@@ -18,6 +18,7 @@ const Orders = () => {
 
   useEffect(() => {
     getOrders();
+    //eslint-disable-next-line
   }, []);
 
   if (orders.length === 0 && !orderLoading) {
@@ -52,7 +53,7 @@ const Orders = () => {
                   <TableCell>{order.date.toLocaleString()}</TableCell>
                   <TableCell>£{order.product.price}</TableCell>
                   <TableCell>
-                    <Link to={`/order/${order.id}`}>View Order</Link>
+                    <Link to={`/order/${order._id}`}>View Order</Link>
                   </TableCell>
                 </TableRow>
               ))}

@@ -27,6 +27,7 @@ const Order = props => {
 
   useEffect(() => {
     getOrder(props.match.params.id);
+    //eslint-disable-next-line
   }, []);
 
   const [open, setOpen] = useState(false);

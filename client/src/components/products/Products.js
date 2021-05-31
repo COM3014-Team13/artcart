@@ -9,6 +9,7 @@ const Products = () => {
 
   useEffect(() => {
     getProducts();
+    //eslint-disable-next-line
   }, []);
 
   if (products.length === 0 && !productLoading) {

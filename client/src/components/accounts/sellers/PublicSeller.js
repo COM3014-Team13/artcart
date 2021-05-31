@@ -17,6 +17,7 @@ const PublicSeller = props => {
   useEffect(() => {
     getPublicSeller(props.match.params.id);
     getSellerProducts(props.match.params.id);
+    //eslint-disable-next-line
   }, []);
 
   return (
@@ -48,9 +49,11 @@ const PublicSeller = props => {
             </Grid>
             <Grid item xs={10}>
               <List>
+                <br />
+                <br />
                 <Grid container spacing={3}>
                   {products.map(product => (
-                    <Grid item xs={5} key={product.id}>
+                    <Grid item xs={10} m={5} key={product.id}>
                       <ProductCard product={product} />
                     </Grid>
                   ))}

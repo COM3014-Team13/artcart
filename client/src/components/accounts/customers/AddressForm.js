@@ -32,7 +32,6 @@ const AddressForm = ({ closeAddress }) => {
     e.preventDefault();
     addAddress(address);
     closeAddress();
-    console.log(address);
   };
 
   return (

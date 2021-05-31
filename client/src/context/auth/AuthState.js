@@ -27,7 +27,7 @@ const AuthState = props => {
   const loadUser = async () => {
     try {
       const res = await axios.get('/api/user');
-      if (res.data === null) throw 'exception';
+      if (res.data === null) throw new Error();
       dispatch({ type: USER_LOADED, payload: res.data });
     } catch (err) {
       dispatch({ type: AUTH_ERROR });
