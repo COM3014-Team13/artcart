@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: products-microservice
-          image: kristiyandobrev/products-microservice
+          image: eu.gcr.io/artcart-dev/product
           env:
             - name: JWT_KEY
               valueFrom:

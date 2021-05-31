@@ -5,10 +5,12 @@ deploy:
     manifests:
       - infra/k8s/*
 build:
-  local:
-    push: false
+  # local:
+  #   push: false
+  googleCloudBuild:
+    projectId: artcart-dev
   artifacts:
-    - image: kristiyandobrev/user
+    - image: eu.gcr.io/artcart-dev/user
       context: user
       docker:
         dockerfile: Dockerfile
@@ -16,7 +18,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: kristiyandobrev/products-microservice
+    - image: eu.gcr.io/artcart-dev/product
       context: product
       docker:
         dockerfile: Dockerfile

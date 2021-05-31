@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user
-          image: kristiyandobrev/user
+          image: eu.gcr.io/artcart-dev/user
           env:
             - name: JWT_KEY
               valueFrom:
